@@ -3,13 +3,20 @@
     <div id="nav">
       <router-link to="/">Home</router-link>
       |
-      <router-link to="/about">About</router-link>
+      <router-link to="/signup">Sign Up</router-link>
+      |
+      <router-link to="/login">Log In</router-link>
+      |
+      <router-link to="/username">Username</router-link>
+      |
+      <router-link to="/editjoy">Edit Joy</router-link>
     </div>
     <router-view />
   </div>
 </template>
 
 <style>
+/* @import "src/styles/styles.css"; */
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
