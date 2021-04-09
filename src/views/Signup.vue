@@ -1,16 +1,42 @@
 <template>
   <div class="sign-up">
     <div class="signup-form">
-      <form action="" method="post">
+      <form v-on:submit.prevent="submit()">
         <h2>Sign Up</h2>
+        <ul>
+          <li class="text-danger" v-for="error in errors" v-bind:key="error">
+            {{ error }}
+          </li>
+        </ul>
         <div class="form-group">
-          <input type="text" class="form-control" name="username" placeholder="Username" required="required" />
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            placeholder="Username"
+            required="required"
+            v-model="username"
+          />
         </div>
         <div class="form-group">
-          <input type="email" class="form-control" name="email" placeholder="Email Address" required="required" />
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            placeholder="Email Address"
+            required="required"
+            v-model="email"
+          />
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" name="password" placeholder="Password" required="required" />
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Password"
+            required="required"
+            v-model="password"
+          />
         </div>
         <div class="form-group">
           <input
@@ -19,6 +45,7 @@
             name="confirm_password"
             placeholder="Confirm Password"
             required="required"
+            v-model="passwordConfirmation"
           />
         </div>
         <div class="form-group">
@@ -102,5 +129,37 @@
 .signup-form a:hover {
   text-decoration: underline;
 }
-
 </style>
+<script>
+import axios from "axios";
+export default {
+  data: function () {
+    return {
+      username: "",
+      email: "",
+      password: "",
+      passwordConfirmation: "",
+      errors: [],
+    };
+  },
+  methods: {
+    submit: function () {
+      var params = {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        password_confirmation: this.passwordConfirmation,
+      };
+      axios
+        .post("/api/users", params)
+        .then((response) => {
+          console.log(response.data);
+          this.$router.push("/login");
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors;
+        });
+    },
+  },
+};
+</script>

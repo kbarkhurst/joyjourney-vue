@@ -9,7 +9,7 @@
               <textarea class="form-control" id="broughtjoy" rows="6"></textarea>
             </div>
             <div class="form-group mt-3">
-              <button type="submit" class="btn btn-primary btn-lg">Submit Joy</button>
+              <button type="submit" class="btn btn-primary btn-lg">Add Joy</button>
             </div>
           </form>
         </div>

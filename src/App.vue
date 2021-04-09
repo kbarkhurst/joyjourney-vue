@@ -1,16 +1,39 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-      |
-      <router-link to="/signup">Sign Up</router-link>
-      |
-      <router-link to="/login">Log In</router-link>
-      |
-      <router-link to="/username">Username</router-link>
-      |
-      <router-link to="/editjoy">Edit Joy</router-link>
-    </div>
+    <header>
+      <nav class="navbar navbar-expand-sm navbar-light">
+        <div class="container">
+          <a class="navbar-brand" href="/">JoyJourneys</a>
+          <ul class="navbar-nav mr-auto">
+            <li>
+              <router-link to="/">Home</router-link>
+            </li>
+            <li class="nav-item" v-if="!isLoggedIn()">
+              |
+              <router-link to="/signup">Sign Up</router-link>
+            </li>
+
+            <li class="nav-item" v-if="!isLoggedIn()">
+              |
+              <router-link to="/login">Log In</router-link>
+            </li>
+
+            <li class="nav-item" v-if="isLoggedIn()">
+              |
+              <router-link to="/logout">Log Out</router-link>
+            </li>
+            |
+            <li>
+              <router-link to="/username">Username</router-link>
+            </li>
+            |
+            <li>
+              <router-link to="/editjoy">Edit Joy</router-link>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
     <router-view />
   </div>
 </template>
@@ -38,3 +61,15 @@
   color: #42b983;
 }
 </style>
+<script>
+export default {
+  methods: {
+    isLoggedIn: function () {
+      return localStorage.getItem("jwt");
+    },
+    getUserId: function () {
+      return localStorage.getItem("user_id");
+    },
+  },
+};
+</script>
