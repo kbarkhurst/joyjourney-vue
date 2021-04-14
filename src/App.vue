@@ -5,30 +5,24 @@
         <div class="container">
           <a class="navbar-brand" href="/">JoyJourneys</a>
           <ul class="navbar-nav mr-auto">
-            <li>
+            <!-- <li>
               <router-link to="/">Home</router-link>
-            </li>
+            </li> -->
             <li class="nav-item" v-if="!isLoggedIn()">
-              |
               <router-link to="/signup">Sign Up</router-link>
             </li>
 
             <li class="nav-item" v-if="!isLoggedIn()">
-              |
               <router-link to="/login">Log In</router-link>
             </li>
-
             <li class="nav-item" v-if="isLoggedIn()">
-              |
-              <router-link to="/logout">Log Out</router-link>
+              <router-link to="/joysnew">My Joys</router-link>
             </li>
-            |
-            <li>
-              <router-link to="/username">Username</router-link>
-            </li>
-            |
-            <li>
+            <li class="nav-item" v-if="isLoggedIn()">
               <router-link to="/editjoy">Edit Joy</router-link>
+            </li>
+            <li class="nav-item" v-if="isLoggedIn()">
+              <router-link to="/logout">Log Out</router-link>
             </li>
           </ul>
         </div>

@@ -26,9 +26,9 @@ const routes = [
     component: () => import("../views/Logout.vue"),
   },
   {
-    path: "/username",
-    name: "Username",
-    component: () => import("../views/Username.vue"),
+    path: "/joysnew",
+    name: "Joysnew",
+    component: () => import("../views/JoysNew.vue"),
   },
   {
     path: "/editjoy",
@@ -41,6 +41,13 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+  scrollBehavior: function (to) {
+    if (to.hash) {
+      return {
+        selector: to.hash,
+      };
+    }
+  },
 });
 
 export default router;
