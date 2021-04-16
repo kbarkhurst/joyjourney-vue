@@ -3,7 +3,7 @@
     <div class="row py-5">
       <div class="col-md-6 mx-auto">
         <div class="username">
-          <h1>What Brought You Joy Today?</h1>
+          <h1>What Brought You Joy Today, {{ username }}</h1>
           <form v-on:submit.prevent="createJoy()">
             <div class="form-group">
               <textarea class="form-control" v-model="body" id="broughtjoy" rows="6"></textarea>
@@ -74,12 +74,14 @@
           <div class="tab-pane fade" :class="{ 'active show': isActive('mine') }" id="mine">
             <div v-for="joy in joys" v-bind:key="joy.id">
               <div v-if="joy.user_id == user_id">
-                <div class="my-4">
-                  <p class="mb-0">{{ joy.body }}</p>
-                  <small class="text-uppercase">
-                    {{ joy.username }} | Dateline {{ joy.updated_at }} | {{ joy.visibility }}
-                  </small>
-                </div>
+                <router-link title="More about this Joy" v-bind:to="`joys/${joy.id}`">
+                  <div class="my-4">
+                    <p class="mb-0">{{ joy.body }}</p>
+                    <small class="text-uppercase">
+                      {{ joy.username }} | Dateline {{ joy.updated_at }} | {{ joy.visibility }}
+                    </small>
+                  </div>
+                </router-link>
               </div>
             </div>
           </div>
@@ -117,6 +119,13 @@
 <script>
 import axios from "axios";
 export default {
+  name: "Username",
+  props: {
+    username: {
+      type: String,
+      required: true,
+    },
+  },
   data: function () {
     return {
       joys: [],
@@ -125,10 +134,13 @@ export default {
       body: "",
       joy: "",
       activeItem: "mine",
+      username: localStorage.getItem("username"),
+      // user: "",
     };
   },
   created: function () {
     this.indexJoys();
+    // this.showUser();
   },
   methods: {
     isActive(menuItem) {
@@ -161,6 +173,12 @@ export default {
           this.errors = error.response.data.errors;
         });
     },
+    // showUser: function () {
+    //   axios.get("/api/users/" + this.$route.params.id).then((response) => {
+    //     console.log(response.data);
+    //     this.user = response.data;
+    //   });
+    // },
   },
 };
 </script>

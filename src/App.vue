@@ -18,9 +18,9 @@
             <li class="nav-item" v-if="isLoggedIn()">
               <router-link to="/joysnew">My Joys</router-link>
             </li>
-            <li class="nav-item" v-if="isLoggedIn()">
+            <!-- <li class="nav-item" v-if="isLoggedIn()">
               <router-link to="/editjoy">Edit Joy</router-link>
-            </li>
+            </li> -->
             <li class="nav-item" v-if="isLoggedIn()">
               <router-link to="/logout">Log Out</router-link>
             </li>

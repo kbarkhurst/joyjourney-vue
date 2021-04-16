@@ -35,6 +35,24 @@ const routes = [
     name: "EditJoy",
     component: () => import("../views/EditJoy.vue"),
   },
+  {
+    path: "/:username",
+    name: "Username",
+    component: () => import("../views/JoysNew.vue"),
+    props: true,
+    // children: [
+    //   {
+    //     path: "/",
+    //     name: "Dashboard",
+    //     component: () => import("../views/JoysNew.vue"),
+    //   },
+    //   {
+    //     path: "/:id",
+    //     name: "Joy Show",
+    //     component: () => import("../views/EditJoy.vue"),
+    //   },
+    // ],
+  },
 ];
 
 const router = new VueRouter({
@@ -51,3 +69,12 @@ const router = new VueRouter({
 });
 
 export default router;
+
+// export default {
+//   name: "router",
+//   data: function () {
+//     return {
+//       username: localStorage.getItem("username"),
+//     };
+//   },
+// };

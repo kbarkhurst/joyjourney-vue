@@ -3,26 +3,54 @@
     <h1>Edit your joy</h1>
     <div class="row">
       <div class="col-md-6">
-        <form>
-          <div class="form-group">
-            <label for="visibility">Visibility</label>
-            <select class="form-control" id="visibility">
-              <option>Private Joy</option>
-              <option>Public Joy</option>
+        <form v-on:submit.prevent="updateJoy(joy)">
+          <div class="form-group my-3">
+            <select class="form-control" v-model="visibility" id="visibility">
+              <option value="true">Public Entry</option>
+              <option value="false">Private Entry</option>
             </select>
           </div>
         </form>
       </div>
-      <textarea class="form-control my-3" id="broughtjoy" rows="6">
-          First snow at our new home. A hot tub morning with the kiddos before school!
-        </textarea
-      >
-      <form>
+      <div class="form-group">
+        <textarea class="form-control" v-model="body" id="broughtjoy" rows="6"></textarea>
         <div class="form-group mt-3">
           Cancel
           <button type="submit" class="btn btn-primary btn-lg">Resubmit Joy</button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
+<script>
+import axios from "axios";
+export default {
+  data: function () {
+    return {
+      joy: [],
+      visibility: true,
+    };
+  },
+  created: function () {
+    axios.get("/api/joys/" + this.$route.params.id).then((response) => {
+      console.log(response.data);
+      this.joy = response.data;
+    });
+  },
+  methods: {
+    updateJoy: function (joy) {
+      console.log("Updating this joy");
+      var params = {
+        body: joy.body,
+        visibility: joy.visibility,
+      };
+      axios
+        .patch("/api/joys/" + this.$route.params.id, params)
+        .then(() => {
+          this.$router.push("/joysnew/#viewjoys");
+        })
+        .catch((error) => console.log(error.response));
+    },
+  },
+};
+</script>
