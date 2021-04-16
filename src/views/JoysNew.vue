@@ -3,7 +3,7 @@
     <div class="row py-5">
       <div class="col-md-6 mx-auto">
         <div class="username">
-          <h1>What Brought You Joy Today, {{ username }}</h1>
+          <h1>What Brought You Joy Today, {{ username }}?</h1>
           <form v-on:submit.prevent="createJoy()">
             <div class="form-group">
               <textarea class="form-control" v-model="body" id="broughtjoy" rows="6"></textarea>
@@ -139,7 +139,7 @@ export default {
       body: "",
       joy: "",
       activeItem: "mine",
-      yourusername: this.username,
+      // yourusername: this.username,
     };
   },
   created: function () {
@@ -168,7 +168,7 @@ export default {
         .post("/api/joys/", params)
         .then((response) => {
           console.log(response.data);
-          this.$router.push("/:username/#viewjoys");
+          this.$router.push("#viewjoys");
         })
         .catch((error) => {
           this.errors = error.response.data.errors;

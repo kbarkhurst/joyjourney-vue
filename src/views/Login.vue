@@ -124,7 +124,7 @@ export default {
           localStorage.setItem("jwt", response.data.jwt);
           localStorage.setItem("user_id", response.data.user_id);
           localStorage.setItem("username", response.data.username);
-          this.$router.push("/joysnew");
+          this.$router.push({ path: "/" + localStorage.getItem("username") });
         })
         .catch((error) => {
           console.log(error.response);
