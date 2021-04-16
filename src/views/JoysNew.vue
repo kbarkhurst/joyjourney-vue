@@ -126,6 +126,11 @@ export default {
       required: true,
     },
   },
+  // computed: {
+  //   getUserName() {
+  //     axios.get("/api/users/" + localStorage.getItem("user_id")).then(({ data }) => (this.username = data));
+  //   },
+  // },
   data: function () {
     return {
       joys: [],
@@ -134,13 +139,11 @@ export default {
       body: "",
       joy: "",
       activeItem: "mine",
-      username: localStorage.getItem("username"),
-      // user: "",
+      yourusername: this.username,
     };
   },
   created: function () {
     this.indexJoys();
-    // this.showUser();
   },
   methods: {
     isActive(menuItem) {
@@ -153,7 +156,6 @@ export default {
       axios.get("/api/joys").then((response) => {
         this.joys = response.data;
         console.log("all joys:", this.joys);
-        // localStorage.setItem("user_id") === true;
       });
     },
     createJoy: function () {
@@ -161,24 +163,17 @@ export default {
       var params = {
         body: this.body,
         visibility: this.visibility,
-        // user_id: localStorage.getItem("user_id"),
       };
       axios
         .post("/api/joys/", params)
         .then((response) => {
           console.log(response.data);
-          this.$router.push("/joysnew/#viewjoys");
+          this.$router.push("/:username/#viewjoys");
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
         });
     },
-    // showUser: function () {
-    //   axios.get("/api/users/" + this.$route.params.id).then((response) => {
-    //     console.log(response.data);
-    //     this.user = response.data;
-    //   });
-    // },
   },
 };
 </script>
