@@ -3,7 +3,7 @@
     <div class="row py-5">
       <div class="col-md-6 mx-auto">
         <div class="username">
-          <h1>What Brought You Joy Today, {{ username }}?</h1>
+          <h1>What Brought You Joy Today, {{ getUsername() }}?</h1>
           <form v-on:submit.prevent="createJoy()">
             <div class="form-group">
               <textarea class="form-control" v-model="body" id="broughtjoy" rows="6"></textarea>
@@ -74,7 +74,7 @@
           <div class="tab-pane fade" :class="{ 'active show': isActive('mine') }" id="mine">
             <div v-for="joy in joys" v-bind:key="joy.id">
               <div v-if="joy.user_id == user_id">
-                <router-link title="More about this Joy" v-bind:to="`joys/${joy.id}`">
+                <router-link title="More about this Joy" v-bind:to="`/${username}/joys/${joy.id}`">
                   <div class="my-4">
                     <p class="mb-0">{{ joy.body }}</p>
                     <small class="text-uppercase">
@@ -158,6 +158,9 @@ export default {
         console.log("all joys:", this.joys);
       });
     },
+    getUsername: function () {
+      return localStorage.getItem("username");
+    },
     createJoy: function () {
       console.log("Creating your new joy.");
       var params = {
@@ -168,7 +171,8 @@ export default {
         .post("/api/joys/", params)
         .then((response) => {
           console.log(response.data);
-          this.$router.push("#viewjoys");
+          // this.$router.push("{ path: '/' + getUsername() }");
+          this.$router.push("/");
         })
         .catch((error) => {
           this.errors = error.response.data.errors;

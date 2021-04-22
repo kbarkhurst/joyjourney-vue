@@ -5,7 +5,7 @@
       <div class="col-md-6">
         <form v-on:submit.prevent="updateJoy(joy)">
           <div class="form-group my-3">
-            <select class="form-control" v-model="visibility" id="visibility">
+            <select class="form-control" v-model="joy.visibility" id="visibility">
               <option value="true">Public Entry</option>
               <option value="false">Private Entry</option>
             </select>
@@ -13,7 +13,7 @@
         </form>
       </div>
       <div class="form-group">
-        <textarea class="form-control" v-model="body" id="broughtjoy" rows="6"></textarea>
+        <textarea class="form-control" v-model="joy.body" id="broughtjoy" rows="6"></textarea>
         <div class="form-group mt-3">
           Cancel
           <button type="submit" class="btn btn-primary btn-lg">Resubmit Joy</button>
@@ -27,12 +27,13 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      joy: [],
+      joy: {},
       visibility: true,
+      body: "",
     };
   },
   created: function () {
-    axios.get("/api/joys/" + this.$route.params.id).then((response) => {
+    axios.get("/api/joys/" + this.$route.params.joy.id).then((response) => {
       console.log(response.data);
       this.joy = response.data;
     });
@@ -45,9 +46,9 @@ export default {
         visibility: joy.visibility,
       };
       axios
-        .patch("/api/joys/" + this.$route.params.id, params)
+        .patch("/api/joys/" + this.$route.params.joy.id, params)
         .then(() => {
-          this.$router.push("/joysnew/#viewjoys");
+          this.$router.push("/joysnew");
         })
         .catch((error) => console.log(error.response));
     },

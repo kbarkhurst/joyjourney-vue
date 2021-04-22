@@ -25,33 +25,33 @@ const routes = [
     name: "Logout",
     component: () => import("../views/Logout.vue"),
   },
-  {
-    path: "/joysnew",
-    name: "Joysnew",
-    component: () => import("../views/JoysNew.vue"),
-  },
-  {
-    path: "/editjoy",
-    name: "EditJoy",
-    component: () => import("../views/EditJoy.vue"),
-  },
+  // {
+  //   path: "/joysnew",
+  //   name: "Joysnew",
+  //   component: () => import("../views/JoysNew.vue"),
+  // },
+  // {
+  //   path: "/editjoy",
+  //   name: "EditJoy",
+  //   component: () => import("../views/EditJoy.vue"),
+  // },
   {
     path: "/:username",
-    name: "Username",
+    // name: "Username",
     component: () => import("../views/JoysNew.vue"),
     props: true,
-    // children: [
-    //   {
-    //     path: "/",
-    //     name: "Dashboard",
-    //     component: () => import("../views/JoysNew.vue"),
-    //   },
-    //   {
-    //     path: "/:id",
-    //     name: "Joy Show",
-    //     component: () => import("../views/EditJoy.vue"),
-    //   },
-    // ],
+    children: [
+      {
+        path: "/joys/:id",
+        name: "EditJoy",
+        component: () => import("../views/EditJoy.vue"),
+      },
+      // {
+      //   path: "",
+      //   name: "Dashboard",
+      //   component: () => import("../views/JoysNew.vue"),
+      // },
+    ],
   },
 ];
 
@@ -69,12 +69,3 @@ const router = new VueRouter({
 });
 
 export default router;
-
-// export default {
-//   name: "router",
-//   data: function () {
-//     return {
-//       username: localStorage.getItem("username"),
-//     };
-//   },
-// };
