@@ -29,7 +29,7 @@
     <div class="row bg-light py-5">
       <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
-          <h2>Search your Joy Journey</h2>
+          <label class="h2" for="joysearch">Search your Joy Journey</label>
           <form class="card card-sm">
             <div class="card-body row no-gutters align-items-center">
               <div class="col-auto">
@@ -38,14 +38,16 @@
               <!--end of col-->
               <div class="col">
                 <input
+                  v-model="keyword"
                   class="form-control form-control-lg form-control-borderless"
                   type="search"
                   placeholder="Enter Joyful Search Term"
+                  id="joysearch"
                 />
               </div>
               <!--end of col-->
               <div class="col-auto">
-                <button class="btn btn-lg btn-success" type="submit">Search</button>
+                <button @click.prevent="keywordSearch()" class="btn btn-lg btn-success" type="submit">Search</button>
               </div>
               <!--end of col-->
             </div>
@@ -55,6 +57,12 @@
       </div>
     </div>
     <div id="viewjoys" class="row py-5">
+      {{ keyword }}
+      <ul>
+        <li v-for="joy in joys" v-bind:key="joy.id">
+          {{ joy.body }}
+        </li>
+      </ul>
       <h2>Joys</h2>
       <p>Select Date Range to Filter Joys</p>
       <div class="col-10 mx-auto">
@@ -82,7 +90,7 @@
                 <div class="my-4">
                   <p class="mb-0">{{ joy.body }}</p>
                   <small class="text-uppercase">
-                    {{ joy.username }} | Dateline {{ joy.updated_at }} | {{ joy.visibility }} |
+                    {{ joy.username }} | Updated {{ joy.updated_at | diffForHumans }} | {{ joy.visibility }} |
                     <router-link
                       title="More about this Joy"
                       v-bind:to="{ path: '/' + getUsername() + '/joys/' + joy.id }"
@@ -100,7 +108,7 @@
                 <div class="my-4">
                   <p class="mb-0">{{ joy.body }}</p>
                   <small class="text-uppercase">
-                    {{ joy.username }} | Dateline {{ joy.updated_at }} | {{ joy.visibility }}
+                    {{ joy.username }} | Updated {{ joy.updated_at | diffForHumans }} | {{ joy.visibility }}
                   </small>
                 </div>
               </div>
@@ -127,14 +135,19 @@
 </style>
 <script>
 import axios from "axios";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { debounce } from "lodash";
+
 export default {
-  name: "Username",
-  props: {
-    username: {
-      type: String,
-      required: true,
-    },
-  },
+  // name: "Username",
+  // props: {
+  //   username: {
+  //     type: String,
+  //     required: true,
+  //     keyword: "",
+  //   },
+  // },
   // computed: {
   //   getUserName() {
   //     axios.get("/api/users/" + localStorage.getItem("user_id")).then(({ data }) => (this.username = data));
@@ -149,11 +162,29 @@ export default {
       joy: "",
       activeItem: "mine",
       errors: [],
+      keyword: "",
       // yourusername: this.username,
     };
   },
   created: function () {
     this.indexJoys();
+    dayjs.extend(relativeTime);
+    this.debounceKeyword = debounce(this.keywordSearch, 1000);
+  },
+  watch: {
+    keyword() {
+      if (!this.keyword) return;
+      this.debounceKeyword();
+    },
+  },
+  filters: {
+    diffForHumans: (date) => {
+      if (!date) {
+        return null;
+      }
+
+      return dayjs(date).fromNow();
+    },
   },
   methods: {
     isActive(menuItem) {
@@ -187,6 +218,23 @@ export default {
         .catch((error) => {
           this.errors = error.response.data.errors;
         });
+    },
+    keywordSearch() {
+      console.log("Searching Keyword:" + this.keyword);
+      axios
+        .get("/api/joys/", {
+          params: {
+            search: this.keyword,
+          },
+        })
+        .then((response) => {
+          console.log(response.data.results);
+          this.joys = response.data.results;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+        console.log(this.keyword)
     },
   },
 };

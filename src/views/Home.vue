@@ -7,7 +7,7 @@
           <div class="my-4">
             <p class="mb-0">{{ joy.body }}</p>
             <small class="text-uppercase">
-              {{ joy.username }} | Dateline {{ joy.updated_at }} | {{ joy.visibility }}
+              {{ joy.username }} | Updated {{ joy.updated_at | diffForHumans }} | {{ joy.visibility }}
             </small>
           </div>
         </div>
@@ -18,6 +18,8 @@
 
 <script>
 import axios from "axios";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
@@ -31,6 +33,16 @@ export default {
   },
   created: function () {
     this.indexJoys();
+    dayjs.extend(relativeTime);
+  },
+  filters: {
+    diffForHumans: (date) => {
+      if (!date) {
+        return null;
+      }
+
+      return dayjs(date).fromNow();
+    },
   },
   components: {},
   methods: {
