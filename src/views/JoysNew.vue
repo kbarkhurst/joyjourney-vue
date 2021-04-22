@@ -1,6 +1,11 @@
 <template>
   <div class="container-fluid">
     <div class="row py-5">
+      <ul>
+        <li class="text-danger" v-for="error in errors" v-bind:key="error">
+          {{ error }}
+        </li>
+      </ul>
       <div class="col-md-6 mx-auto">
         <div class="username">
           <h1>What Brought You Joy Today, {{ getUsername() }}?</h1>
@@ -74,14 +79,18 @@
           <div class="tab-pane fade" :class="{ 'active show': isActive('mine') }" id="mine">
             <div v-for="joy in joys" v-bind:key="joy.id">
               <div v-if="joy.user_id == user_id">
-                <router-link title="More about this Joy" v-bind:to="`/${username}/joys/${joy.id}`">
-                  <div class="my-4">
-                    <p class="mb-0">{{ joy.body }}</p>
-                    <small class="text-uppercase">
-                      {{ joy.username }} | Dateline {{ joy.updated_at }} | {{ joy.visibility }}
-                    </small>
-                  </div>
-                </router-link>
+                <div class="my-4">
+                  <p class="mb-0">{{ joy.body }}</p>
+                  <small class="text-uppercase">
+                    {{ joy.username }} | Dateline {{ joy.updated_at }} | {{ joy.visibility }} |
+                    <router-link
+                      title="More about this Joy"
+                      v-bind:to="{ path: '/' + getUsername() + '/joys/' + joy.id }"
+                    >
+                      Edit
+                    </router-link>
+                  </small>
+                </div>
               </div>
             </div>
           </div>
@@ -139,6 +148,7 @@ export default {
       body: "",
       joy: "",
       activeItem: "mine",
+      errors: [],
       // yourusername: this.username,
     };
   },
