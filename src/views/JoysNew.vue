@@ -38,7 +38,7 @@
               <!--end of col-->
               <div class="col">
                 <input
-                  v-model="keyword"
+                  v-model="keyword_search"
                   class="form-control form-control-lg form-control-borderless"
                   type="search"
                   placeholder="Enter Joyful Search Term"
@@ -47,7 +47,7 @@
               </div>
               <!--end of col-->
               <div class="col-auto">
-                <button @click.prevent="keywordSearch()" class="btn btn-lg btn-success" type="submit">Search</button>
+                <button @click.prevent="keywordSearchJoys" class="btn btn-lg btn-success" type="submit">Search</button>
               </div>
               <!--end of col-->
             </div>
@@ -57,12 +57,7 @@
       </div>
     </div>
     <div id="viewjoys" class="row py-5">
-      {{ keyword }}
-      <ul>
-        <li v-for="joy in joys" v-bind:key="joy.id">
-          {{ joy.body }}
-        </li>
-      </ul>
+      {{ keyword_search }}
       <h2>Joys</h2>
       <p>Select Date Range to Filter Joys</p>
       <div class="col-10 mx-auto">
@@ -137,7 +132,6 @@
 import axios from "axios";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { debounce } from "lodash";
 
 export default {
   // name: "Username",
@@ -162,20 +156,12 @@ export default {
       joy: "",
       activeItem: "mine",
       errors: [],
-      keyword: "",
-      // yourusername: this.username,
+      keyword_search: "",
     };
   },
   created: function () {
     this.indexJoys();
     dayjs.extend(relativeTime);
-    this.debounceKeyword = debounce(this.keywordSearch, 1000);
-  },
-  watch: {
-    keyword() {
-      if (!this.keyword) return;
-      this.debounceKeyword();
-    },
   },
   filters: {
     diffForHumans: (date) => {
@@ -199,6 +185,15 @@ export default {
         console.log("all joys:", this.joys);
       });
     },
+    keywordSearchJoys: function () {
+      console.log("keyword search:", this.keyword_search);
+      let params = this.keyword_search;
+      console.log("/api/joys/q/?keyword_search=" + params);
+      axios.get("/api/joys/q/?keyword_search=" + params).then((response) => {
+        this.joys = response.data;
+        console.log("search results joys:", this.joys);
+      });
+    },
     getUsername: function () {
       return localStorage.getItem("username");
     },
@@ -218,23 +213,6 @@ export default {
         .catch((error) => {
           this.errors = error.response.data.errors;
         });
-    },
-    keywordSearch() {
-      console.log("Searching Keyword:" + this.keyword);
-      axios
-        .get("/api/joys/", {
-          params: {
-            search: this.keyword,
-          },
-        })
-        .then((response) => {
-          console.log(response.data.results);
-          this.joys = response.data.results;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-        console.log(this.keyword)
     },
   },
 };

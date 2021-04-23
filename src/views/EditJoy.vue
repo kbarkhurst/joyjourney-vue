@@ -40,7 +40,7 @@ export default {
     };
   },
   created: function () {
-    console.log(this.$route);
+    
     axios.get("/api/joys/" + this.$route.params.id).then((response) => {
       console.log(response.data);
       this.joy = response.data;
