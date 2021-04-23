@@ -7,7 +7,8 @@
           <div class="my-4">
             <p class="mb-0">{{ joy.body }}</p>
             <small class="text-uppercase">
-              {{ joy.username }} | Updated {{ joy.updated_at | diffForHumans }} | {{ joy.visibility }}
+              <a href="#">{{ joy.username }}</a>
+              wrote this {{ joy.updated_at | diffForHumans }}
             </small>
           </div>
         </div>

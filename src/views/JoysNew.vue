@@ -26,7 +26,7 @@
         </div>
       </div>
     </div>
-    <div class="row bg-light py-5">
+    <!-- <div class="row bg-light py-5">
       <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
           <label class="h2" for="joysearch">Search your Joy Journey</label>
@@ -35,7 +35,7 @@
               <div class="col-auto">
                 <i class="fas fa-search h4 text-body"></i>
               </div>
-              <!--end of col-->
+              
               <div class="col">
                 <input
                   v-model="keyword_search"
@@ -45,21 +45,20 @@
                   id="joysearch"
                 />
               </div>
-              <!--end of col-->
+              
               <div class="col-auto">
                 <button @click.prevent="keywordSearchJoys" class="btn btn-lg btn-success" type="submit">Search</button>
               </div>
-              <!--end of col-->
+              
             </div>
           </form>
         </div>
-        <!--end of col-->
+        
       </div>
-    </div>
+    </div> -->
     <div id="viewjoys" class="row py-5">
-      {{ keyword_search }}
       <h2>Joys</h2>
-      <p>Select Date Range to Filter Joys</p>
+
       <div class="col-10 mx-auto">
         <ul class="nav nav-tabs nav-justified">
           <li class="nav-item">
@@ -80,16 +79,50 @@
         </ul>
         <div class="tab-content py-3" id="myTabContent">
           <div class="tab-pane fade" :class="{ 'active show': isActive('mine') }" id="mine">
+            <div class="row justify-content-center">
+              <p>Select Date Range to Filter Joys</p>
+              <div class="col-12 col-md-10 col-lg-8">
+                <label class="h4" for="joysearch">Search your Joy Journey</label>
+                <form class="card card-sm">
+                  <div class="card-body row no-gutters align-items-center">
+                    <div class="col-auto">
+                      <i class="fas fa-search h4 text-body"></i>
+                    </div>
+                    <!--end of col-->
+                    <div class="col">
+                      <input
+                        v-model="keyword_search"
+                        class="form-control form-control-lg form-control-borderless"
+                        type="search"
+                        placeholder="Enter Joyful Search Term"
+                        id="joysearch"
+                      />
+                    </div>
+                    <!--end of col-->
+                    <div class="col-auto">
+                      <button @click.prevent="keywordSearchJoys" class="btn btn-lg btn-success" type="submit">
+                        Search
+                      </button>
+                    </div>
+                    <!--end of col-->
+                  </div>
+                </form>
+              </div>
+              <!--end of col-->
+            </div>
+            <div v-if="keyword_search">
+              Search results for
+              <span class="text-uppercase">{{ keyword_search }}</span>
+            </div>
             <div v-for="joy in joys" v-bind:key="joy.id">
               <div v-if="joy.user_id == user_id">
                 <div class="my-4">
                   <p class="mb-0">{{ joy.body }}</p>
                   <small class="text-uppercase">
-                    {{ joy.username }} | Updated {{ joy.updated_at | diffForHumans }} | {{ joy.visibility }} |
-                    <router-link
-                      title="More about this Joy"
-                      v-bind:to="{ path: '/' + getUsername() + '/joys/' + joy.id }"
-                    >
+                    You wrote this {{ joy.updated_at | diffForHumans }} |
+                    <span v-if="joy.visibility == true">Public Joy</span>
+                    <span v-if="joy.visibility == false">Private Joy</span>
+                    <router-link title="Edit this Joy" v-bind:to="{ path: '/' + getUsername() + '/joys/' + joy.id }">
                       Edit
                     </router-link>
                   </small>
@@ -103,7 +136,7 @@
                 <div class="my-4">
                   <p class="mb-0">{{ joy.body }}</p>
                   <small class="text-uppercase">
-                    {{ joy.username }} | Updated {{ joy.updated_at | diffForHumans }} | {{ joy.visibility }}
+                    {{ joy.username }} wrote this {{ joy.updated_at | diffForHumans }} | {{ joy.visibility }}
                   </small>
                 </div>
               </div>
@@ -188,8 +221,8 @@ export default {
     keywordSearchJoys: function () {
       console.log("keyword search:", this.keyword_search);
       let params = this.keyword_search;
-      console.log("/api/joys/q/?keyword_search=" + params);
-      axios.get("/api/joys/q/?keyword_search=" + params).then((response) => {
+      console.log("/api/joys/?keyword_search=" + params);
+      axios.get("/api/joys/?keyword_search=" + params).then((response) => {
         this.joys = response.data;
         console.log("search results joys:", this.joys);
       });

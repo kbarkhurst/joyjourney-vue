@@ -31,7 +31,6 @@
 
 <script>
 import axios from "axios";
-
 export default {
   data: function () {
     return {
@@ -40,8 +39,8 @@ export default {
     };
   },
   created: function () {
-    
-    axios.get("/api/joys/" + this.$route.params.id).then((response) => {
+    axios.get(`/api/joys/${this.$route.params.id}`).then((response) => {
+      console.log(`/api/joys/${this.$route.params.id}`);
       console.log(response.data);
       this.joy = response.data;
     });
