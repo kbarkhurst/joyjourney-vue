@@ -8,7 +8,7 @@
       </ul>
       <div class="col-md-6 mx-auto">
         <div class="username">
-          <h1>What Brought You Joy Today, {{ getUsername() }}?</h1>
+          <h1>What Brought You Joy Today, {{ getCurrentUsername() }}?</h1>
           <form v-on:submit.prevent="createJoy()">
             <div class="form-group">
               <textarea class="form-control" v-model="body" id="broughtjoy" rows="6"></textarea>
@@ -114,18 +114,42 @@
               Search results for
               <span class="text-uppercase">{{ keyword_search }}</span>
             </div>
-            <div v-for="joy in joys" v-bind:key="joy.id">
-              <div v-if="joy.user_id == user_id">
-                <div class="my-4">
-                  <p class="mb-0">{{ joy.body }}</p>
-                  <small class="text-uppercase">
-                    You wrote this {{ joy.updated_at | diffForHumans }} |
-                    <span v-if="joy.visibility == true">Public Joy</span>
-                    <span v-if="joy.visibility == false">Private Joy</span>
-                    <router-link title="Edit this Joy" v-bind:to="{ path: '/' + getUsername() + '/joys/' + joy.id }">
-                      Edit
-                    </router-link>
-                  </small>
+            <div class="container">
+              <div v-for="joy in joys" v-bind:key="joy.id">
+                <div v-if="joy.user_id == user_id">
+                  <div class="row my-5 justify-content-center">
+                    <div class="col-6">
+                      <div class="row">
+                        <div class="col-11 text-left">
+                          <router-link
+                            title="Show this Joy"
+                            v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + joy.id }"
+                          >
+                            <p class="mb-0">{{ joy.body }}</p>
+                          </router-link>
+                          <small class="text-uppercase">
+                            You wrote this {{ joy.updated_at | diffForHumans }} |
+                            <span v-if="joy.visibility == true">Public Joy</span>
+                            <span v-if="joy.visibility == false">Private Joy</span>
+                            <router-link
+                              title="Edit this Joy"
+                              v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/edit/' + joy.id }"
+                            >
+                              Edit
+                            </router-link>
+                          </small>
+                        </div>
+                        <div class="col-1 float-start">
+                          <router-link
+                            title="Spread Joy"
+                            v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/share/' + joy.id }"
+                          >
+                            <img src="/images/spreads_joy_icon.svg" alt="spreads joy" title="Spreads Joy" height="40" />
+                          </router-link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -133,11 +157,31 @@
           <div class="tab-pane fade" :class="{ 'active show': isActive('public') }" id="public">
             <div v-for="joy in joys" v-bind:key="joy.id">
               <div v-if="joy.visibility">
-                <div class="my-4">
-                  <p class="mb-0">{{ joy.body }}</p>
-                  <small class="text-uppercase">
-                    {{ joy.username }} wrote this {{ joy.updated_at | diffForHumans }} | {{ joy.visibility }}
-                  </small>
+                <div class="row my-5 justify-content-center">
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-11 text-left">
+                        <router-link
+                          title="Show this Joy"
+                          v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + joy.id }"
+                        >
+                          <p class="mb-0">{{ joy.body }}</p>
+                        </router-link>
+                        <small class="text-uppercase">
+                          {{ joy.username }} wrote this {{ joy.updated_at | diffForHumans }} | {{ joy.visibility }}
+                        </small>
+                      </div>
+
+                      <div class="col-1 float-start">
+                        <router-link
+                          title="Spread Joy"
+                          v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/share/' + joy.id }"
+                        >
+                          <img src="/images/spreads_joy_icon.svg" alt="spreads joy" title="Spreads Joy" height="40" />
+                        </router-link>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -167,19 +211,6 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 export default {
-  // name: "Username",
-  // props: {
-  //   username: {
-  //     type: String,
-  //     required: true,
-  //     keyword: "",
-  //   },
-  // },
-  // computed: {
-  //   getUserName() {
-  //     axios.get("/api/users/" + localStorage.getItem("user_id")).then(({ data }) => (this.username = data));
-  //   },
-  // },
   data: function () {
     return {
       joys: [],
@@ -227,8 +258,11 @@ export default {
         console.log("search results joys:", this.joys);
       });
     },
-    getUsername: function () {
+    getCurrentUsername: function () {
       return localStorage.getItem("username");
+    },
+    spreadsJoy: function () {
+      console.log("Spreading Joy");
     },
     createJoy: function () {
       console.log("Creating your new joy.");
@@ -240,7 +274,7 @@ export default {
         .post("/api/joys/", params)
         .then((response) => {
           console.log(response.data);
-          // this.$router.push("{ path: '/' + getUsername() }");
+          // this.$router.push("{ path: '/' + getCurrentUsername() }");
           this.$router.push("/");
         })
         .catch((error) => {

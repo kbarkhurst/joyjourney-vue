@@ -8,7 +8,7 @@
             <!-- <li>
               <router-link to="/">Home</router-link>
             </li> -->
-            <p v-if="isLoggedIn()" class="pe-2">Hi, {{ getUsername() }}!</p>
+            <p v-if="isLoggedIn()" class="pe-2">Hi, {{ getCurrentUsername() }}!</p>
             <li class="nav-item" v-if="!isLoggedIn()">
               <router-link to="/signup">Sign Up</router-link>
             </li>
@@ -17,7 +17,7 @@
               <router-link to="/login">Log In</router-link>
             </li>
             <li class="nav-item pe-2" v-if="isLoggedIn()">
-              <router-link :to="{ path: '/' + getUsername() }">My Joys</router-link>
+              <router-link :to="{ path: '/' + getCurrentUsername() }">My Joys</router-link>
             </li>
             <!-- <li class="nav-item" v-if="isLoggedIn()">
               <router-link to="/editjoy">Edit Joy</router-link>
@@ -70,7 +70,7 @@ export default {
     getUserId: function () {
       return localStorage.getItem("user_id");
     },
-    getUsername: function () {
+    getCurrentUsername: function () {
       return localStorage.getItem("username");
     },
   },

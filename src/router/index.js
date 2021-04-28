@@ -45,22 +45,23 @@ const router = new VueRouter({
     {
       path: "/:username",
       component: () => import("../views/JoysNew.vue"),
-      // props: true,
-      // children: [
-      //   {
-      //     path: "joys/:id",
-      //     // name: "EditJoy",
-      //     component: () => import("../views/EditJoy.vue"),
-      //   },
-      //   // {
-      //   //   path: "",
-      //   //   name: "Dashboard",
-      //   //   component: () => import("../views/JoysNew.vue"),
-      //   // },
-      // ],
+    },
+    // {
+    //   path: "/:username/joys",
+    //   component: () => import("../views/JoysNew.vue"),
+    // },
+    {
+      path: "/:username/joys/share/:id",
+      name: "SpreadsJoy",
+      component: () => import("../views/SpreadsJoy.vue"),
     },
     {
       path: "/:username/joys/:id",
+      name: "ShowJoy",
+      component: () => import("../views/ShowJoy.vue"),
+    },
+    {
+      path: "/:username/joys/edit/:id",
       name: "EditJoy",
       component: () => import("../views/EditJoy.vue"),
     },
