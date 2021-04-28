@@ -1,4 +1,76 @@
-body {
-  background: rgb(234, 159, 102);
-  background: linear-gradient(180deg, rgba(234, 159, 102, 1) 0%, rgba(253, 242, 175, 1) 100%);
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text&family=Montserrat&display=swap');
+
+#app {
+ font-family: 'Montserrat', sans-serif;
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+}
+main {
+  margin-left:17rem;
+}
+.bg-orangegradient {
+  background:url('/images/decorative-bloom.png'),
+  linear-gradient(180deg, rgba(254,158,86,1) 0%, rgba(253,242,175,1) 47%, rgba(253,242,175,1) 68%, rgba(253,206,136,1) 100%);
+  background-size:contain;
+  background-repeat:no-repeat;
+}
+
+.brandname {
+  font-family: 'Libre Caslon Text', serif;
+  color:#ea3a1c;
+}
+/** Side Nav **/
+#sideNav .navbar-nav .nav-item .nav-link {
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+  font-size:1.25rem;
+  color:#a00852;
+}
+#sideNav .navbar-toggler:focus {
+  outline-color: #d48a6e;
+}
+
+@media (min-width: 992px) {
+  #sideNav {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    width: 17rem;
+    height: 100vh;
+    -webkit-box-shadow: 10px 0px 13px -4px rgba(58,3,30,0.22); 
+box-shadow: 10px 0px 13px -4px rgba(58,3,30,0.22);
+  }
+  #sideNav .navbar-brand {
+    display: flex;
+    margin:100px auto 0;
+    /* margin: auto auto 0; */
+    padding: 0.5rem;
+  }
+  #sideNav .navbar-brand .img-profile {
+    max-width: 10rem;
+    max-height: 10rem;
+    border: 0.5rem solid rgba(255, 255, 255, 0.2);
+  }
+  #sideNav .navbar-collapse {
+    display: flex;
+    align-items: flex-start;
+    flex-grow: 0;
+    width: 100%;
+    margin-bottom: auto;
+    margin-top:30%;
+  }
+  #sideNav .navbar-collapse .navbar-nav {
+    flex-direction: column;
+    width: 100%;
+  }
+  #sideNav .navbar-collapse .navbar-nav .nav-item {
+    display: block;
+  }
+  #sideNav .navbar-collapse .navbar-nav .nav-item .nav-link {
+    display: block;
+  }
 }
