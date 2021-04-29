@@ -9,7 +9,7 @@
       </ul>
       <div v-if="joy.inspirationfors.length > 0" class="my-5">
         <!-- <p>More</p> -->
-        <h3>Inspired by</h3>
+        <h3>Inspired by {{ joy.id }}</h3>
         <div v-for="inspirationfor in joy.inspirationfors" v-bind:key="inspirationfor.id">
           <div class="my-4">
             <p class="mb-0">{{ inspirationfor.body }}</p>
@@ -21,13 +21,13 @@
         </div>
       </div>
       <div class="my-5">
-        <h4>Your joy</h4>
+        <h4>Your joy {{ joy.id }}</h4>
         <h1>{{ joy.body }}</h1>
         <small class="text-uppercase">Created On: {{ joy.created_at }} | Last Updated:{{ joy.updated_at }}</small>
       </div>
       <div v-if="joy.inspiredbys.length > 0">
         <hr />
-        <h2>Inspired The Following</h2>
+        <h2>Inspired The Following {{ joy.id }}</h2>
         <div v-for="inspiredby in inspiredbys" v-bind:key="inspiredby.id">
           <div class="my-4">
             <p class="mb-0">{{ joy.body }}</p>
