@@ -43,6 +43,10 @@ const router = new VueRouter({
     //   component: () => import("../views/EditJoy.vue"),
     // },
     {
+      path: "/:username/addjoy",
+      component: () => import("../views/AddJoy.vue"),
+    },
+    {
       path: "/:username",
       component: () => import("../views/JoysNew.vue"),
     },
@@ -56,9 +60,19 @@ const router = new VueRouter({
       component: () => import("../views/SpreadsJoy.vue"),
     },
     {
+      path: "/:username/joys",
+      name: "MyJoys",
+      component: () => import("../views/MyJoys.vue"),
+    },
+    {
       path: "/:username/joys/:id",
       name: "ShowJoy",
       component: () => import("../views/ShowJoy.vue"),
+    },
+    {
+      path: "/:username/explore",
+      name: "ExploreJoy",
+      component: () => import("../views/ExploreJoys.vue"),
     },
     {
       path: "/:username/joys/edit/:id",

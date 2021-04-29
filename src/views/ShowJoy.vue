@@ -7,22 +7,24 @@
           {{ error }}
         </li>
       </ul>
-      <div v-if="joy.inspirationfors.length > 0">
-        <p>More</p>
-        <h2>Inspired by</h2>
+      <div v-if="joy.inspirationfors.length > 0" class="my-5">
+        <!-- <p>More</p> -->
+        <h3>Inspired by</h3>
         <div v-for="inspirationfor in joy.inspirationfors" v-bind:key="inspirationfor.id">
           <div class="my-4">
             <p class="mb-0">{{ inspirationfor.body }}</p>
             <small class="text-uppercase">
-              {{ inspirationfor.username }} wrote this {{ inspirationfor.updated_at | diffForHumans }} |
-              {{ inspirationfor.visibility }}
+              {{ inspirationfor.user_id }} wrote this {{ inspirationfor.updated_at | diffForHumans }}
+              <!-- {{ inspirationfor.visibility }} -->
             </small>
           </div>
         </div>
       </div>
-      <h1>Your joy</h1>
-      {{ joy.body }}
-      <p>Created On: {{ joy.created_at }} | Last Updated:{{ joy.updated_at }}</p>
+      <div class="my-5">
+        <h4>Your joy</h4>
+        <h1>{{ joy.body }}</h1>
+        <small class="text-uppercase">Created On: {{ joy.created_at }} | Last Updated:{{ joy.updated_at }}</small>
+      </div>
       <div v-if="joy.inspiredbys.length > 0">
         <hr />
         <h2>Inspired The Following</h2>

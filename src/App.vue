@@ -27,7 +27,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
-          <li class="nav-item" v-if="isLoggedIn()">Hi, {{ getCurrentUsername() }}!</li>
+          <!-- <li class="nav-item" v-if="isLoggedIn()">Hi, {{ getCurrentUsername() }}!</li> -->
           <li class="nav-item" v-if="!isLoggedIn()">
             <router-link to="/signup" class="nav-link">Sign Up</router-link>
           </li>
@@ -36,15 +36,18 @@
             <router-link to="/login" class="nav-link">Log In</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn()">
-            Add Joys
-            <!-- <router-link :to="{ path: '/' + getCurrentUsername() }">Add Joys</router-link> -->
+            <router-link :to="{ path: '/' + getCurrentUsername() + '/addjoy' }" class="nav-link">Add Joy</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn()">
-            <router-link :to="{ path: '/' + getCurrentUsername() }" class="nav-link">My Joys</router-link>
+            <router-link :to="{ path: '/' + getCurrentUsername() + '/joys' }" class="nav-link">My Joys</router-link>
           </li>
-          <li class="nav-item" v-if="isLoggedIn()">Explore Joys</li>
           <li class="nav-item" v-if="isLoggedIn()">
-            <router-link to="/logout" class="nav-link">Log Out</router-link>
+            <router-link :to="{ path: '/' + getCurrentUsername() + '/explore' }" class="nav-link">
+              Explore Joys
+            </router-link>
+          </li>
+          <li class="nav-item nav-secondary" v-if="isLoggedIn()">
+            <router-link to="/logout" class="">Log Out</router-link>
           </li>
           <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Experience</a></li>
@@ -88,6 +91,7 @@
   color: #2c3e50;
   background-color: #fcf6d1;
   height: 100vh;
+  height: 100%;
 }
 
 #nav {
@@ -97,10 +101,6 @@
 #nav a {
   font-weight: bold;
   color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
 <script>

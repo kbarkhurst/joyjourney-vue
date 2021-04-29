@@ -2,18 +2,26 @@
   <main>
     <div class="container-fluid">
       <div class="row py-5">
+        <ul>
+          <li class="text-danger" v-for="error in errors" v-bind:key="error">
+            {{ error }}
+          </li>
+        </ul>
         <div class="col-md-6 mx-auto">
-          <div>
-            <h5 class="mb-3">You are inspired by the following:</h5>
-            <h3>{{ joy.body }}</h3>
-            <small>Written {{ joy.updated_at | diffForHumans }}</small>
-            <h2 class="mt-5 mb-3">Write how this brings you joy, too</h2>
+          <div class="username">
+            <h2>What Brought You Joy Today, {{ getCurrentUsername() }}?</h2>
             <form v-on:submit.prevent="createJoy()">
               <div class="form-group">
-                <textarea class="form-control addjoy" rows="6" placeholder="Add your joy..." v-model="body"></textarea>
+                <textarea
+                  class="form-control"
+                  placeholder="Add your joy"
+                  v-model="body"
+                  id="broughtjoy"
+                  rows="6"
+                ></textarea>
               </div>
               <div class="form-group my-3">
-                <select class="form-control" v-model="visibility">
+                <select class="form-control" v-model="visibility" id="visibility">
                   <option value="true">Public Entry</option>
                   <option value="false">Private Entry</option>
                 </select>
@@ -28,35 +36,33 @@
     </div>
   </main>
 </template>
+
+<style scoped>
+.form-control-borderless {
+  border: none;
+}
+
+.form-control-borderless:hover,
+.form-control-borderless:active,
+.form-control-borderless:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+</style>
 <script>
 import axios from "axios";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 
 export default {
   data: function () {
     return {
-      joy: {},
-      body: "",
       visibility: true,
+      user_id: localStorage.getItem("user_id"),
+      username: localStorage.getItem("username"),
+      body: "",
+      joy: "",
+      errors: [],
     };
-  },
-  created: function () {
-    axios.get(`/api/joys/${this.$route.params.id}`).then((response) => {
-      console.log(`/api/joys/${this.$route.params.id}`);
-      console.log(response.data);
-      this.joy = response.data;
-    });
-    dayjs.extend(relativeTime);
-  },
-  filters: {
-    diffForHumans: (date) => {
-      if (!date) {
-        return null;
-      }
-
-      return dayjs(date).fromNow();
-    },
   },
   methods: {
     getCurrentUsername: function () {
@@ -67,15 +73,12 @@ export default {
       var params = {
         body: this.body,
         visibility: this.visibility,
-        inspirationfor_id: this.joy.id,
       };
-      console.log("the original joy is the inspirationfor_id:" + this.joy.id);
       axios
         .post("/api/joys/", params)
         .then((response) => {
           console.log(response.data);
-          // this.$router.push("{ path: '/' + getCurrentUsername() }");
-          this.$router.push({ path: "/" + this.getCurrentUsername() + "/joys" });
+          this.$router.push({ name: "MyJoys" });
         })
         .catch((error) => {
           this.errors = error.response.data.errors;

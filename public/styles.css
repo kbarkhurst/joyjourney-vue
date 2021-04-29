@@ -1,13 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text&family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Libre+Caslon+Text:wght@400;700&family=Montserrat&display=swap');
 
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: #fcf6d1;
+}
+textarea.addjoy  
+{  
+  font-family: 'Just Another Hand', cursive; 
+  font-size: 3rem;
+  color:#a00852 !important;
+  padding: 1.0rem 1.25rem;
+}
+a {
+  color:#a00852 !important;
+  text-decoration: none !important;
+}
 #app {
  font-family: 'Montserrat', sans-serif;
  -webkit-font-smoothing: antialiased;
  -moz-osx-font-smoothing: grayscale;
+ height:100%;
 }
 main {
   margin-left:17rem;
+  padding:15px;
 }
 .bg-orangegradient {
   background:url('/images/decorative-bloom.png'),
@@ -19,6 +37,7 @@ main {
 .brandname {
   font-family: 'Libre Caslon Text', serif;
   color:#ea3a1c;
+  font-weight:700 !important;
 }
 /** Side Nav **/
 #sideNav .navbar-nav .nav-item .nav-link {
@@ -27,8 +46,17 @@ main {
   font-size:1.25rem;
   color:#a00852;
 }
+#sideNav .nav-item.nav-secondary {
+  text-decoration:none;
+  color:#a00852;
+  padding-top:30%;
+}
 #sideNav .navbar-toggler:focus {
   outline-color: #d48a6e;
+}
+
+#sideNav a.router-link-exact-active {
+  color:#ea532e !important;
 }
 
 @media (min-width: 992px) {
