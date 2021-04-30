@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Libre+Caslon+Text:wght@400;700&family=Montserrat&display=swap');
+
+.script {
+  font-family: 'Libre Caslon Text', serif;
+  font-size: 2rem;
+}
+
 @media (min-width: 992px) {
 .login {
   display: flex;
@@ -6,18 +12,14 @@
   /* margin-top:15%; */
 }
 }
-main {
-  margin-left:17rem;
-  padding:15px;
-  height:100vmin;
-  
+.imagery {
   background-image:url(/images/bg-image.png);
   background-size:cover;
   /* linear-gradient(orange, yellow, pink), 
   linear-gradient( to left, black, white); */
 background-blend-mode:  
   overlay, multiply;
-animation-duration: 30s;
+animation-duration: 10s;
 animation-name: background-color-animation;
 animation-iteration-count: infinite;
 animation-direction: alternate;
@@ -27,13 +29,19 @@ animation-timing-function: ease-in-out;
   background-color:rgba(254,158,86,1.0);
   background-blend-mode: overlay; */
 }
+main {
+  margin-left:17rem;
+  padding:15px;
+  height:100vmin;
+  
+}
 @keyframes background-color-animation {
   from {
     background-color: #e44922;
   }
 
   to {
-    background-color: #e92a41;
+    background-color: #e0513b;
   }
 }
 html,
@@ -159,8 +167,55 @@ box-shadow: 10px 0px 13px -4px rgba(58,3,30,0.22);
   font-weight: bold;
   margin: 0 0 25px;
 }
+main .form-control {
+  background:rgba(252,246,209,1.0);
+}
+.grow { transition: all .2s ease-in-out; }
+.grow:hover { transform: scale(1.1); }
+
+.border-radius-8 {
+  border-radius: 8px;
+}
+.pink {
+  color:#a00852;
+}
+.yelloworange {
+  color:#ff8c00;
+}
+.orange {
+  color:#ea532e;
+}
+.bgorange {
+  background-color:#ff8c00;
+  color: rgba(252,246,209,1.0)!important;
+  /* background-color: #ffd68a; */
+}
+.bgorange a {
+  color: rgba(252,246,209,1.0)!important;
+}
+.banner {
+  background-color:#a00852;
+  margin:-15px !important;
+  padding:15px;
+  color:rgba(252,246,209,1.0);
+}
+.nopadding {
+  padding:-15px !important;
+}
+.joyentry p {
+  font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 2.0rem;
+}
 .bgtan {
-  background:rgba(252,246,209,.9);
+  background:rgba(252,246,209,0.9);
+}
+.jjshadow {
+  -webkit-box-shadow: 10px 0px 13px -4px rgba(58,3,30,0.22); 
+  box-shadow: 10px 0px 13px -4px rgba(58,3,30,0.22);
+}
+.bgtan:hover {
+  background:rgba(252, 246, 209, 1.0);
 }
 .signup-form form {
   margin-bottom: 15px;
@@ -187,7 +242,11 @@ box-shadow: 10px 0px 13px -4px rgba(58,3,30,0.22);
 .btn-primary {
   background: rgb(228,31,119);
   background: radial-gradient(circle, rgba(228,31,119,1) 11%, rgba(205,38,109,1) 100%);
+  border-color:rgb(228,31,119) !important;
+  font-weight:600 !important;
+  font-size:1.5rem !important;
 }
+
 .signup-form .btn {
   font-size: 16px;
   font-weight: bold;

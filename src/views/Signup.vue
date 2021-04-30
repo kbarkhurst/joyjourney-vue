@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="imagery">
     <div class="login">
       <div class="signup-form">
         <form v-on:submit.prevent="submit()">

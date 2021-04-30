@@ -1,27 +1,36 @@
 <template>
   <main>
+    <div class="banner py-4">
+      <h5>You are inspired by the following:</h5>
+      <h3 class="mb-0 script">{{ joy.body }}</h3>
+      <small>Written {{ joy.updated_at | diffForHumans }}</small>
+    </div>
     <div class="container-fluid">
       <div class="row py-5">
-        <div class="col-md-6 mx-auto">
-          <div>
-            <h5 class="mb-3">You are inspired by the following:</h5>
-            <h3>{{ joy.body }}</h3>
-            <small>Written {{ joy.updated_at | diffForHumans }}</small>
-            <h2 class="mt-5 mb-3">Write how this brings you joy, too</h2>
-            <form v-on:submit.prevent="createJoy()">
-              <div class="form-group">
-                <textarea class="form-control addjoy" rows="6" placeholder="Add your joy..." v-model="body"></textarea>
-              </div>
-              <div class="form-group my-3">
-                <select class="form-control" v-model="visibility">
-                  <option value="true">Public Entry</option>
-                  <option value="false">Private Entry</option>
-                </select>
-              </div>
-              <div class="form-group mt-3">
-                <button type="submit" class="btn btn-primary btn-lg">Share Joy</button>
-              </div>
-            </form>
+        <div class="col-md-10 bgorange mx-auto border-radius-8 jjshadow">
+          <div class="col-md-10 mx-auto pb-4">
+            <div>
+              <h2 class="mt-5 mb-3 orange script">Write how this brings you joy, too</h2>
+              <form v-on:submit.prevent="createJoy()">
+                <div class="form-group">
+                  <textarea
+                    class="form-control addjoy"
+                    rows="6"
+                    placeholder="Add your joy..."
+                    v-model="body"
+                  ></textarea>
+                </div>
+                <div class="form-group my-3">
+                  <select class="form-control" v-model="visibility">
+                    <option value="true">Public Entry</option>
+                    <option value="false">Private Entry</option>
+                  </select>
+                </div>
+                <div class="form-group mt-3">
+                  <button type="submit" class="btn btn-primary btn-lg">Share Joy</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

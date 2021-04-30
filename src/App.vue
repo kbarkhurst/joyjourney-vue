@@ -5,12 +5,14 @@
       <a class="navbar-brand">
         <span class="d-block d-lg-none">Joy Journey</span>
         <span class="d-none d-lg-block">
-          <img
-            class="img-fluid mx-auto mb-2"
-            style="min-width: 200px"
-            src="/images/joyjourney-flower-gradient-01.svg"
-            alt="Joy Journey logo"
-          />
+          <a href="/">
+            <img
+              class="img-fluid mx-auto mb-2"
+              style="min-width: 200px"
+              src="/images/joyjourney-flower-gradient-01.svg"
+              alt="Joy Journey logo"
+            />
+          </a>
         </span>
       </a>
       <h2 class="brandname">Joy Journey</h2>

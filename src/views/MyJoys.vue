@@ -2,7 +2,7 @@
   <main>
     <div class="container-fluid">
       <div id="viewjoys" class="row py-5 justify-content-center">
-        <h2>My Joys</h2>
+        <h2 class="orange mb-4">My Joys</h2>
 
         <div class="col-12 col-md-10 col-lg-8">
           <!-- <label class="h4" for="joysearch">Search your Joy Journey</label> -->
@@ -25,7 +25,9 @@
               </div>
               <!--end of col-->
               <div class="col-auto">
-                <button @click.prevent="keywordSearchMyJoys()" class="btn btn-lg btn-success">Search</button>
+                <button @click.prevent="keywordSearchMyJoys()" class="btn btn-lg btn-primary btn-success">
+                  Search
+                </button>
               </div>
               <!--end of col-->
             </div>
@@ -40,29 +42,31 @@
           <div v-if="joys.length > 0">
             <div v-for="joy in joys" v-bind:key="joy.id">
               <div v-if="joy.user_id == user_id">
-                <div class="row my-5 justify-content-center">
-                  <div class="col-6">
-                    <div class="row">
+                <div class="row my-4 justify-content-center">
+                  <div class="col-8">
+                    <div class="row grow jjshadow joyentry bgorange border-radius-8 py-4 px-2">
                       <div class="col-11 text-left">
                         <router-link
                           title="Show this Joy"
                           v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + joy.id }"
                         >
-                          <p class="mb-0">{{ joy.body }}</p>
+                          <p class="mb-0 script">{{ joy.body }}</p>
                         </router-link>
-                        <small class="text-uppercase">
-                          You wrote this {{ joy.updated_at | diffForHumans }} |
-                          <span v-if="joy.visibility == true">Public Joy</span>
-                          <span v-if="joy.visibility == false">Private Joy</span>
-                          <router-link
-                            title="Edit this Joy"
-                            v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/edit/' + joy.id }"
-                          >
-                            Edit
-                          </router-link>
-                        </small>
+                        <div style="background-color: #a00852">
+                          <small class="text-uppercase">
+                            You wrote this {{ joy.updated_at | diffForHumans }} |
+                            <span v-if="joy.visibility == true">Public Joy</span>
+                            <span v-if="joy.visibility == false">Private Joy</span>
+                            <router-link
+                              title="Edit this Joy"
+                              v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/edit/' + joy.id }"
+                            >
+                              Edit
+                            </router-link>
+                          </small>
+                        </div>
                       </div>
-                      <div class="col-1 float-start">
+                      <div class="col-1 float-start bgtan">
                         <router-link
                           title="Spread Joy"
                           v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/share/' + joy.id }"

@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="imagery">
     <div class="container-fluid">
       <div class="row py-5">
         <ul>
@@ -7,14 +7,14 @@
             {{ error }}
           </li>
         </ul>
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-8 mx-auto">
           <img class="my-3" src="/images/whatbrought-joy.png" width="400" alt="What brought you joy?" />
           <div class="username">
             <!-- <h2>What Brought You Joy Today, {{ getCurrentUsername() }}?</h2> -->
             <form v-on:submit.prevent="createJoy()">
               <div class="form-group">
                 <textarea
-                  class="form-control"
+                  class="form-control bgtan"
                   placeholder="Add your joy"
                   v-model="body"
                   id="broughtjoy"
@@ -22,13 +22,13 @@
                 ></textarea>
               </div>
               <div class="form-group my-3">
-                <select class="form-control" v-model="visibility" id="visibility">
+                <select class="form-control bg-tan" v-model="visibility" id="visibility">
                   <option value="true">Public Entry</option>
                   <option value="false">Private Entry</option>
                 </select>
               </div>
               <div class="form-group mt-3">
-                <button type="submit" class="btn btn-primary btn-tan btn-lg">Share Joy</button>
+                <button type="submit" class="btn grow btn-primary btn-lg shadow">Share Joy</button>
               </div>
             </form>
           </div>
