@@ -8,8 +8,9 @@
           </li>
         </ul>
         <div class="col-md-6 mx-auto">
+          <img class="my-3" src="/images/whatbrought-joy.png" width="400" alt="What brought you joy?" />
           <div class="username">
-            <h2>What Brought You Joy Today, {{ getCurrentUsername() }}?</h2>
+            <!-- <h2>What Brought You Joy Today, {{ getCurrentUsername() }}?</h2> -->
             <form v-on:submit.prevent="createJoy()">
               <div class="form-group">
                 <textarea
@@ -27,7 +28,7 @@
                 </select>
               </div>
               <div class="form-group mt-3">
-                <button type="submit" class="btn btn-primary btn-lg">Share Joy</button>
+                <button type="submit" class="btn btn-primary btn-tan btn-lg">Share Joy</button>
               </div>
             </form>
           </div>

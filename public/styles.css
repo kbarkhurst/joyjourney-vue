@@ -1,5 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Libre+Caslon+Text:wght@400;700&family=Montserrat&display=swap');
+@media (min-width: 992px) {
+.login {
+  display: flex;
+  align-items: center;
+  /* margin-top:15%; */
+}
+}
+main {
+  margin-left:17rem;
+  padding:15px;
+  height:100vmin;
+  
+  background-image:url(/images/bg-image.png);
+  background-size:cover;
+  /* linear-gradient(orange, yellow, pink), 
+  linear-gradient( to left, black, white); */
+background-blend-mode:  
+  overlay, multiply;
+animation-duration: 30s;
+animation-name: background-color-animation;
+animation-iteration-count: infinite;
+animation-direction: alternate;
+animation-timing-function: ease-in-out;
+  /* background-repeat:no-repeat;
+  background-size:cover;
+  background-color:rgba(254,158,86,1.0);
+  background-blend-mode: overlay; */
+}
+@keyframes background-color-animation {
+  from {
+    background-color: #e44922;
+  }
 
+  to {
+    background-color: #e92a41;
+  }
+}
 html,
 body {
   height: 100%;
@@ -17,16 +53,14 @@ a {
   color:#a00852 !important;
   text-decoration: none !important;
 }
+
 #app {
  font-family: 'Montserrat', sans-serif;
  -webkit-font-smoothing: antialiased;
  -moz-osx-font-smoothing: grayscale;
  height:100%;
 }
-main {
-  margin-left:17rem;
-  padding:15px;
-}
+
 .bg-orangegradient {
   background:url('/images/decorative-bloom.png'),
   linear-gradient(180deg, rgba(254,158,86,1) 0%, rgba(253,242,175,1) 47%, rgba(253,242,175,1) 68%, rgba(253,206,136,1) 100%);
@@ -101,4 +135,78 @@ box-shadow: 10px 0px 13px -4px rgba(58,3,30,0.22);
   #sideNav .navbar-collapse .navbar-nav .nav-item .nav-link {
     display: block;
   }
+}
+/*Signup/Login/Logout Forms*/
+.signup-form .form-control {
+  min-height: 41px;
+  box-shadow: none;
+  border-color: #e6e6e6;
+}
+.signup-form .form-control:focus {
+  border-color: #ea532e;
+}
+
+.btn {
+  border-radius: 3px;
+}
+.signup-form {
+  width: 425px;
+  margin: 0 auto;
+  padding: 30px 0;
+}
+.signup-form h2 {
+  color: #a00852;
+  font-weight: bold;
+  margin: 0 0 25px;
+}
+.bgtan {
+  background:rgba(252,246,209,.9);
+}
+.signup-form form {
+  margin-bottom: 15px;
+  background:rgba(252,246,209,.9);
+  /* border: 1px solid #f4f4f4; */
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  padding: 40px 50px;
+  border-radius: 8px;
+}
+.signup-form .form-group {
+  margin-bottom: 20px;
+}
+.signup-form label {
+  font-weight: normal;
+  font-size: 14px;
+}
+.signup-form input[type="checkbox"] {
+  position: relative;
+  top: 1px;
+}
+.btn-primary.btn-tan {
+  background: linear-gradient(180deg, rgba(254,158,86,1) 0%, rgba(253,242,175,1) 47%, rgba(253,242,175,1) 68%, rgba(253,206,136,1) 100%);
+}
+.btn-primary {
+  background: rgb(228,31,119);
+  background: radial-gradient(circle, rgba(228,31,119,1) 11%, rgba(205,38,109,1) 100%);
+}
+.signup-form .btn {
+  font-size: 16px;
+  font-weight: bold;
+  background: rgb(228,31,119);
+background: radial-gradient(circle, rgba(228,31,119,1) 11%, rgba(205,38,109,1) 100%);
+  border: none;
+  min-width: 140px;
+}
+.signup-form .btn:hover,
+.signup-form .btn:focus,
+.signup-form .btn:active {
+  opacity:.95;
+  background: rgb(244,121,35);
+background: radial-gradient(circle, rgba(244,121,35,1) 11%, rgba(240,95,47,1) 100%);
+}
+.signup-form a {
+  color: #00c1c0;
+  text-decoration: none;
+}
+.signup-form a:hover {
+  text-decoration: underline;
 }

@@ -7,32 +7,33 @@
           {{ error }}
         </li>
       </ul>
-      <div v-if="joy.inspirationfors.length > 0" class="my-5">
+      <div v-if="joy.parents.length > 0" class="my-5">
         <!-- <p>More</p> -->
-        <h3>Inspired by {{ joy.id }}</h3>
-        <div v-for="inspirationfor in joy.inspirationfors" v-bind:key="inspirationfor.id">
+        <h3>Inspired by</h3>
+        <div v-for="parent in joy.parents" v-bind:key="parent.id">{{ parent.id }}
           <div class="my-4">
-            <p class="mb-0">{{ inspirationfor.body }}</p>
+            <p class="mb-0">{{ parent.body }}</p>
             <small class="text-uppercase">
-              {{ inspirationfor.user_id }} wrote this {{ inspirationfor.updated_at | diffForHumans }}
-              <!-- {{ inspirationfor.visibility }} -->
+              {{ parent.username }} wrote this {{ parent.updated_at | diffForHumans }}
+              <!-- {{ parent.visibility }} -->
             </small>
           </div>
         </div>
       </div>
       <div class="my-5">
-        <h4>Your joy {{ joy.id }}</h4>
+        <h4>Your joy</h4>
         <h1>{{ joy.body }}</h1>
         <small class="text-uppercase">Created On: {{ joy.created_at }} | Last Updated:{{ joy.updated_at }}</small>
       </div>
-      <div v-if="joy.inspiredbys.length > 0">
+      <div v-if="joy.inspireds.length > 0">
         <hr />
-        <h2>Inspired The Following {{ joy.id }}</h2>
-        <div v-for="inspiredby in inspiredbys" v-bind:key="inspiredby.id">
+        <h2>Inspired The Following</h2>
+        <div v-for="inspired in joy.inspireds" v-bind:key="inspired.id">
           <div class="my-4">
-            <p class="mb-0">{{ joy.body }}</p>
+            {{ inspired.id }}
+            <p class="mb-0">{{ inspired.body }}</p>
             <small class="text-uppercase">
-              {{ joy.username }} wrote this {{ joy.updated_at | diffForHumans }} | {{ joy.visibility }}
+              {{ inspired.username }} wrote this {{ inspired.updated_at | diffForHumans }} | {{ inspired.visibility }}
             </small>
           </div>
         </div>
@@ -51,8 +52,8 @@ export default {
     return {
       joy: {},
       errors: [],
-      inspiredbys: {},
-      inspirationfors: {},
+      inspireds: {},
+      parents: {},
       body: "",
       username: "",
     };

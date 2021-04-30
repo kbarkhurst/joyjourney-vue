@@ -9,7 +9,7 @@
             class="img-fluid mx-auto mb-2"
             style="min-width: 200px"
             src="/images/joyjourney-flower-gradient-01.svg"
-            alt="Patricia Barnes"
+            alt="Joy Journey logo"
           />
         </span>
       </a>

@@ -67,9 +67,9 @@ export default {
       var params = {
         body: this.body,
         visibility: this.visibility,
-        inspirationfor_id: this.joy.id,
+        parent_id: this.joy.id,
       };
-      console.log("the original joy is the inspirationfor_id:" + this.joy.id);
+      console.log("the original joy is the parent_id:" + this.joy.id);
       axios
         .post("/api/joys/", params)
         .then((response) => {
