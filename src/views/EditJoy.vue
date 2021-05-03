@@ -1,32 +1,34 @@
 <template>
-  <div class="container">
-    <h1>Edit your joy</h1>
-    <p>Created On: {{ joy.created_at }} | Last Updated:{{ joy.updated_at }}</p>
-    <ul>
-      <li class="text-danger" v-for="error in errors" v-bind:key="error">
-        {{ error }}
-      </li>
-    </ul>
-    <form v-on:submit.prevent="updateJoy(joy)">
-      <div class="row">
-        <div class="form-group">
-          <textarea class="form-control" v-model="joy.body" id="broughtjoy" rows="6"></textarea>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group my-3">
-            <select class="form-control" v-model="joy.visibility" id="visibility">
-              <option value="true">Public Entry</option>
-              <option value="false">Private Entry</option>
-            </select>
+  <main>
+    <div class="container">
+      <h1>Edit your joy</h1>
+      <p>Created On: {{ joy.created_at }} | Last Updated:{{ joy.updated_at }}</p>
+      <ul>
+        <li class="text-danger" v-for="error in errors" v-bind:key="error">
+          {{ error }}
+        </li>
+      </ul>
+      <form v-on:submit.prevent="updateJoy(joy)">
+        <div class="row">
+          <div class="form-group">
+            <textarea class="form-control" v-model="joy.body" id="broughtjoy" rows="6"></textarea>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group my-3">
+              <select class="form-control" v-model="joy.visibility" id="visibility">
+                <option value="true">Public Entry</option>
+                <option value="false">Private Entry</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <a href="#" @click="goBack">Cancel</a>
+            <button type="submit" class="btn btn-primary btn-lg">Resubmit Joy</button>
           </div>
         </div>
-        <div class="form-group mt-3">
-          <a href="#" @click="goBack">Cancel</a>
-          <button type="submit" class="btn btn-primary btn-lg">Resubmit Joy</button>
-        </div>
-      </div>
-    </form>
-  </div>
+      </form>
+    </div>
+  </main>
 </template>
 
 <script>

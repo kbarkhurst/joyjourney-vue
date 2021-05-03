@@ -15,7 +15,15 @@
           </a>
         </span>
       </a>
-      <h2 class="brandname">Joy Journey</h2>
+      <a href="/">
+        <h2 class="brandname">
+          <span v-if="getCurrentUsername()">
+            {{ getCurrentUsername() }}'s
+            <br />
+          </span>
+          Joy Journey
+        </h2>
+      </a>
       <button
         class="navbar-toggler"
         type="button"
@@ -107,11 +115,11 @@
 </style>
 <script>
 export default {
-  data: function () {
-    return {
-      username: localStorage.getItem("username"),
-    };
-  },
+  // data: function () {
+  //   return {
+  //     username: localStorage.getItem("username"),
+  //   };
+  // },
   methods: {
     isLoggedIn: function () {
       return localStorage.getItem("jwt");

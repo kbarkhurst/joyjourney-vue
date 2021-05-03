@@ -8,7 +8,7 @@
           </li>
         </ul>
         <div class="col-md-8 mx-auto">
-          <img class="my-3" src="/images/whatbrought-joy.png" width="400" alt="What brought you joy?" />
+          <img class="my-3" src="/images/whatbrought-joy.png" width="470" alt="What brought you joy?" />
           <div class="username">
             <!-- <h2>What Brought You Joy Today, {{ getCurrentUsername() }}?</h2> -->
             <form v-on:submit.prevent="createJoy()">
@@ -28,7 +28,7 @@
                 </select>
               </div>
               <div class="form-group mt-3">
-                <button type="submit" class="btn grow btn-primary btn-lg shadow">Share Joy</button>
+                <button type="submit" class="btn grow btn-primary btn-lg shadow">Share Your Joy</button>
               </div>
             </form>
           </div>

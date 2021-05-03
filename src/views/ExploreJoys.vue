@@ -23,7 +23,7 @@
               </div>
               <!--end of col-->
               <div class="col-auto">
-                <button @click="keywordSearchJoys" class="btn btn-lg btn-success" type="submit">Search</button>
+                <button @click="keywordSearchAllJoys" class="btn btn-lg btn-success" type="submit">Search</button>
               </div>
               <!--end of col-->
             </div>
@@ -120,7 +120,7 @@ export default {
         console.log("all joys:", this.joys);
       });
     },
-    keywordSearchJoys: function () {
+    keywordSearchAllJoys: function () {
       console.log("keyword search:", this.keyword_search);
       let params = this.keyword_search;
       console.log("/api/joys/?keyword_search=" + params);

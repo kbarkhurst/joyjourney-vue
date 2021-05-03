@@ -10,9 +10,12 @@
       <div v-if="joy.parents.length > 0" class="my-5">
         <!-- <p>More</p> -->
         <h3>Inspired by</h3>
-        <div v-for="parent in joy.parents" v-bind:key="parent.id">{{ parent.id }}
+        <div v-for="parent in joy.parents" v-bind:key="parent.id">
+          {{ parent.id }}
           <div class="my-4">
-            <p class="mb-0">{{ parent.body }}</p>
+            <router-link title="Show this Joy" v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + parent.id }">
+              <p class="mb-0">{{ parent.body }}</p>
+            </router-link>
             <small class="text-uppercase">
               {{ parent.username }} wrote this {{ parent.updated_at | diffForHumans }}
               <!-- {{ parent.visibility }} -->
@@ -31,7 +34,13 @@
         <div v-for="inspired in joy.inspireds" v-bind:key="inspired.id">
           <div class="my-4">
             {{ inspired.id }}
-            <p class="mb-0">{{ inspired.body }}</p>
+            <router-link
+              title="Show this Joy"
+              v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + inspired.id }"
+            >
+              <p class="mb-0">{{ inspired.body }}</p>
+            </router-link>
+
             <small class="text-uppercase">
               {{ inspired.username }} wrote this {{ inspired.updated_at | diffForHumans }} | {{ inspired.visibility }}
             </small>
@@ -78,6 +87,9 @@ export default {
   methods: {
     goBack: function () {
       return this.$router.go(-1);
+    },
+    getCurrentUsername: function () {
+      return localStorage.getItem("username");
     },
   },
 };

@@ -61,14 +61,22 @@ a {
   color:#a00852 !important;
   text-decoration: none !important;
 }
-
+.card h1 {
+  font-size:1.5rem;
+}
 #app {
  font-family: 'Montserrat', sans-serif;
  -webkit-font-smoothing: antialiased;
  -moz-osx-font-smoothing: grayscale;
  height:100%;
 }
-
+.joys .card {
+  background:rgba(256,256,256,.75);
+  /* background: rgba(253, 210, 136, 0.2); */
+  /* background:#f8e2a6; */
+  /* background: rgb(247,243,208);
+  background: linear-gradient(180deg, rgba(247,243,208,1) 0%, rgba(251,246,213,1) 100%); */
+}
 .bg-orangegradient {
   background:url('/images/decorative-bloom.png'),
   linear-gradient(180deg, rgba(254,158,86,1) 0%, rgba(253,242,175,1) 47%, rgba(253,242,175,1) 68%, rgba(253,206,136,1) 100%);
@@ -171,7 +179,7 @@ main .form-control {
   background:rgba(252,246,209,1.0);
 }
 .grow { transition: all .2s ease-in-out; }
-.grow:hover { transform: scale(1.1); }
+.grow:hover { transform: scale(1.05); }
 
 .border-radius-8 {
   border-radius: 8px;
@@ -190,11 +198,51 @@ main .form-control {
   color: rgba(252,246,209,1.0)!important;
   /* background-color: #ffd68a; */
 }
+.bg-oggradient {
+  background: rgb(244,121,35);
+background: radial-gradient(circle, rgba(244,121,35,1) 11%, rgba(240,95,47,1) 100%);
+}
 .bgorange a {
   color: rgba(252,246,209,1.0)!important;
 }
+.pilledge a {
+  color:white !important;
+}
+.pilledge {
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  /* background-color:#ff8c00; */
+  background: rgb(228,31,119);
+  background: radial-gradient(circle, rgba(228,31,119,1) 11%, rgba(205,38,109,1) 100%);
+  border-color:rgb(228,31,119) !important;
+  font-weight:600 !important;
+  font-size:1.3rem;
+  line-height:1.3rem;
+  color:white;
+}
+small {
+  font-size:12px !important;
+}
+.pilledge:hover {
+  background: rgb(244,121,35);
+background: radial-gradient(circle, rgba(244,121,35,1) 11%, rgba(240,95,47,1) 100%);
+}
+.joys a:hover h1 {
+  color:#ff8c00;
+}
+.joys .card {
+  border-radius:2rem;
+}
+.joys .card-footer {
+  background-color:transparent;
+  border-top:none;
+  /* background-color:#ff8c00;
+  color:rgba(252,246,209,0); */
+}
 .banner {
-  background-color:#a00852;
+  background: rgb(244,121,35);
+background: radial-gradient(circle, rgba(244,121,35,1) 11%, rgba(240,95,47,1) 100%);
+  /* background-color:#a00852; */
   margin:-15px !important;
   padding:15px;
   color:rgba(252,246,209,1.0);
