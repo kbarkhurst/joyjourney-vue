@@ -26,7 +26,10 @@
       <div class="my-5">
         <h4>Your joy</h4>
         <h1>{{ joy.body }}</h1>
-        <small class="text-uppercase">Created On: {{ joy.created_at }} | Last Updated:{{ joy.updated_at }}</small>
+        <small class="text-uppercase">
+          {{ joy.username }} wrote this {{ joy.created_at | diffForHumans }}
+          <!-- | Last Updated:{{ joy.updated_at | diffForHumans }} -->
+        </small>
       </div>
       <div v-if="joy.inspireds.length > 0">
         <hr />
@@ -34,6 +37,9 @@
         <div v-for="inspired in joy.inspireds" v-bind:key="inspired.id">
           <div class="my-4">
             {{ inspired.id }}
+            <!-- <router-link title="Show this Joy" to="{ name: 'ShowJoy'}, params: { username: inspired.username }">
+              <p class="mb-0">{{ inspired.body }}</p>
+            </router-link> -->
             <router-link
               title="Show this Joy"
               v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + inspired.id }"
@@ -42,7 +48,8 @@
             </router-link>
 
             <small class="text-uppercase">
-              {{ inspired.username }} wrote this {{ inspired.updated_at | diffForHumans }} | {{ inspired.visibility }}
+              {{ inspired.username }} wrote this {{ inspired.created_at | diffForHumans }} 
+              <!-- | {{ inspired.visibility }} -->
             </small>
           </div>
         </div>

@@ -105,7 +105,8 @@ a {
   outline-color: #d48a6e;
 }
 
-#sideNav a.router-link-exact-active {
+#sideNav a.router-link-exact-active,
+#sideNav a.router-link-active {
   color:#ea532e !important;
 }
 

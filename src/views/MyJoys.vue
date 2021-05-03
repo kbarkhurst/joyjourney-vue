@@ -39,18 +39,18 @@
         </div>
         <div v-if="joys.length > 0">
           <div class="container joys">
-            <p>Showing {{ joys[0].pagy.count }} Of Your Joys | Ascending Order</p>
-            <div>
+            <p v-if="pagyObj">Showing {{ pagyObj.items }} Of {{ totalCount }} of Your Joys</p>
+            <div v-if="pagyObj">
               <!-- buttons -->
-              <button @click="goToPage(1)">Start</button>
+              <button @click="goToPage(1)" :disabled="!pagyObj.prev">Start</button>
 
               <button @click="goToPage(pagyObj.prev)" :disabled="!pagyObj.prev">Previous</button>
 
-              <input v-model.number="pageNum" @change="indexJoys()" />
+              <input v-model.number="pageNum" @change="keywordSearchMyJoys()" />
 
               <button @click="goToPage(pagyObj.next)" :disabled="!pagyObj.next">Next</button>
 
-              <button @click="goToPage(pagyObj.last)">>></button>
+              <button @click="goToPage(pagyObj.last)" :disabled="!pagyObj.next">>></button>
             </div>
             <div class="col-md-10 mx-auto">
               <div class="row my-4 justify-content-center">
@@ -60,12 +60,14 @@
                     <div class="card-block">
                       <div class="row">
                         <div class="col-md-10 pt-4 px-0">
-                          <router-link
-                            title="View this Joy"
-                            v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + joy.id }"
-                          >
-                            <h1 class="card-text brandname pink">{{ joy.body }}</h1>
-                          </router-link>
+                          <div class="px-3">
+                            <router-link
+                              title="View this Joy"
+                              v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + joy.id }"
+                            >
+                              <h1 class="card-text brandname pink">{{ joy.body }}</h1>
+                            </router-link>
+                          </div>
                           <div class="card-footer mb-2">
                             <div class="card-text text-right">
                               <small class="text-uppercase">
@@ -139,13 +141,25 @@ export default {
       body: "",
       joy: "",
       errors: [],
+      isNewKeyword: false,
       keyword_search: "",
-      page: 1,
+      pageNum: 1,
       pagyObj: null,
     };
   },
+  computed: {
+    totalCount() {
+      return this.pagyObj.items * this.pagyObj.pages;
+    },
+  },
+  watch: {
+    keyword_search(newValue, oldValue) {
+      if (newValue !== oldValue) this.isNewKeyword = true;
+    },
+  },
   created: function () {
-    this.indexJoys();
+    // this.indexJoys();
+    this.keywordSearchMyJoys();
     dayjs.extend(relativeTime);
   },
   filters: {
@@ -172,28 +186,38 @@ export default {
           },
         })
         .then((response) => {
-          this.joys = response.data;
-          this.pagyObj = this.joys[0].pagy;
+          this.joys = response.data.joys;
+          this.pagyObj = response.data.pagy;
           this.pageNum = this.pagyObj.page;
           console.log("all joys:", this.joys);
         });
     },
     keywordSearchMyJoys: function () {
+      if (this.isNewKeyword) {
+        this.pageNum = 1;
+        this.isNewKeyword = false;
+      }
       console.log("keyword search:", this.keyword_search);
       // console.log("/api/joys/?keyword_search=" + this.keyword_search + "&user_id=" + this.user_id);
-      console.log(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${this.user_id}`);
-      axios.get(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${this.user_id}`).then((response) => {
-        this.joys = response.data;
-        console.log("search results joys:", this.joys);
-      });
+      console.log(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${this.user_id}&page=${this.pageNum}`);
+      axios
+        .get(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${this.user_id}&page=${this.pageNum}`)
+        .then((response) => {
+          this.joys = response.data.joys;
+          this.pagyObj = response.data.pagy;
+          this.pageNum = this.pagyObj.page;
+          console.log("search results joys:", this.joys);
+          console.log("pagy:", this.pagyObj);
+        });
     },
     getCurrentUsername: function () {
       return localStorage.getItem("username");
     },
     goToPage: function (newPageNumber) {
-      console.log(newPageNumber)
+      console.log(newPageNumber);
       this.pageNum = newPageNumber;
-      this.indexJoys();
+      // this.indexJoys();
+      this.keywordSearchMyJoys();
     },
     spreadsJoy: function () {
       console.log("Spreading Joy");
@@ -207,7 +231,7 @@ export default {
       axios
         .post("/api/joys/", params)
         .then((response) => {
-          console.log(response.data);
+          console.log(response.data.joys);
           // this.$router.push("{ path: '/' + getCurrentUsername() }");
           this.$router.push("/");
         })
