@@ -211,12 +211,14 @@ box-shadow: 10px 0px 13px -4px rgba(58,3,30,0.22);
 #viewjoys {
   margin-top:200px;
 }
-.scaled { transform: scale(1.05);}
+.scaleddown {transform: scale(.85);}
+.scaledup { transform: scale(1.06);}
+.scaledup h1 { font-size:2.0rem;}
 .scaled.card h1 {
   font-size:2.0rem;
 }
 .grow { transition: all .2s ease-in-out; }
-.grow:hover { transform: scale(1.05); }
+.grow:hover { transform: scale(1.03); }
 
 .border-radius-8 {
   border-radius: 8px;

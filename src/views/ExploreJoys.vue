@@ -63,25 +63,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="container">
-      <div class="home">
-        <h1>Public Joys</h1>
-        <div v-for="joy in joys" v-bind:key="joy.id">
-          <div v-if="joy.visibility">
-            <div class="my-4">
-              <p class="mb-0">{{ joy.body }}</p>
-              <small class="text-uppercase">
-                <router-link title="View Joys" v-bind:to="{ path: '/' + joy.username }">
-                  {{ joy.username }}
-                </router-link>
-                wrote this {{ joy.updated_at | diffForHumans }}
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-  <div class="container-fluid">
+    <div class="container-fluid">
       <div id="viewjoys" class="row py-5 justify-content-center">
         <div v-if="keyword_search" class="text-center font-bold">
           Your search results for
@@ -108,7 +90,10 @@
                           <div class="card-footer mb-2">
                             <div class="card-text text-right">
                               <small class="text-uppercase">
-                                {{ joy.username }} wrote this {{ joy.updated_at | diffForHumans }} |
+                                <router-link title="View Joys" v-bind:to="{ path: '/' + joy.username }">
+                                  {{ joy.username }}
+                                </router-link>
+                                wrote this {{ joy.updated_at | diffForHumans }} |
                                 <span v-if="joy.visibility == true">Public Joy</span>
                                 <span v-if="joy.visibility == false">Private Joy</span>
                               </small>

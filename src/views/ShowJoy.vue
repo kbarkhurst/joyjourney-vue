@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="container-fluid joys">
-      <div class="row py-5">
+      <div class="row">
         <div class="col-md-10 mx-auto">
           <p><a href="#" @click="goBack">Go Back</a></p>
           <ul>
@@ -10,9 +10,9 @@
             </li>
           </ul>
           <div v-if="joy.parents && joy.parents.length > 0" class="my-5">
-            <h3 class="serif">Inspired by</h3>
+            <h5 class="sans-serif text-center text-uppercase">Inspired by</h5>
             <div v-for="parent in joy.parents" v-bind:key="parent.id">
-              <div class="card my-3 px-0 text-center shadow">
+              <div class="card my-3 px-0 text-center shadow scaleddown grow">
                 <div class="card-block">
                   <div class="row">
                     <div class="col-md-10 pt-4 px-0">
@@ -55,76 +55,93 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row my-4">
         <div class="col-md-10 mx-auto">
-          <h2 class="serif">Your joy</h2>
-          <div class="card my-3 px-0 text-center shadow scaled">
-            <div class="card-block">
-              <div class="row">
-                <div class="col-md-10 pt-4 px-0">
-                  <div class="px-3">
-                    <router-link
-                      title="Show this Joy"
-                      v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + joy.id }"
-                    >
-                      <h1 class="card-text brandname pink">{{ joy.body }}</h1>
-                    </router-link>
-                  </div>
-                  <div class="card-footer mb-2">
-                    <div class="card-text text-right">
-                      <small class="name text-uppercase">
-                        <router-link title="View Joys" v-bind:to="{ path: '/' + joy.username }">
-                          {{ joy.username }}
-                        </router-link>
-                        wrote this {{ joy.updated_at | diffForHumans }}
-                      </small>
-                    </div>
+          <h5 class="mb-3 sans-serif text-center text-uppercase">Your joy</h5>
+          <div class="card my-3 px-0 text-center shadow scaledup">
+            <div class="row">
+              <div class="col-md-10 px-0 align-self-center">
+                <div class="px-3">
+                  <h1 class="card-text brandname orange">{{ joy.body }}</h1>
+                </div>
+                <div class="card-footer fixed-footer">
+                  <div class="card-text text-right">
+                    <small class="name text-uppercase">
+                      <router-link title="View Joys" v-bind:to="{ path: '/' + joy.username }">
+                        {{ joy.username }}
+                      </router-link>
+                      wrote this {{ joy.updated_at | diffForHumans }}
+                    </small>
                   </div>
                 </div>
-                <div class="col-md-2 pilledge p-0">
-                  <router-link
-                    title="Spread Joy"
-                    v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/share/' + joy.id }"
-                  >
-                    <img src="/images/spreads_joy_icon.svg" alt="spreads joy" title="Spreads Joy" height="40" />
-                    <br />
-                    Spreads
-                    <br />
-                    Joy
-                  </router-link>
-                </div>
+              </div>
+              <div class="col-md-2 pilledge p-3">
+                <router-link
+                  title="Spread Joy"
+                  v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/share/' + joy.id }"
+                >
+                  <img
+                    src="/images/spreads_joy_icon.svg"
+                    alt="spreads joy"
+                    title="Spreads Joy"
+                    height="40"
+                    class="img-fluid"
+                  />
+                  <br />
+                  Spreads
+                  <br />
+                  Joy
+                </router-link>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- <h1>{{ joy.body }}</h1>
-          <small class="text-uppercase">{{ joy.username }} wrote this {{ joy.created_at | diffForHumans }}</small>
-        </div>
-      </div> -->
-
-      <div v-if="joy.inspireds && joy.inspireds.length > 0" class="row">
-        <h2 class="serif">Inspired The Following</h2>
-        <div v-for="inspired in joy.inspireds" v-bind:key="inspired.id">
-          <div class="my-4">
-            <!-- <router-link title="Show this Joy" to="{ name: 'ShowJoy'}, params: { username: inspired.username }">
-              <p class="mb-0">{{ inspired.body }}</p>
-            </router-link> -->
-            <router-link
-              title="Show this Joy"
-              v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + inspired.id }"
-            >
-              <p class="mb-0">{{ inspired.body }}</p>
-            </router-link>
-
-            <small class="name text-uppercase">
-              <router-link title="View Joys" v-bind:to="{ path: '/' + joy.username }">
-                {{ inspired.username }}
-              </router-link>
-              wrote this {{ inspired.created_at | diffForHumans }}
-              <!-- | {{ inspired.visibility }} -->
-            </small>
+      <div class="row">
+        <div class="col-md-10 mx-auto">
+          <div v-if="joy.inspireds && joy.inspireds.length > 0" class="my-5">
+            <h5 class="mb-3 sans-serif text-center text-uppercase">Inspired The Following</h5>
+            <div v-for="inspired in joy.inspireds" v-bind:key="inspired.id">
+              <div class="card my-3 px-0 text-center shadow scaleddown grow">
+                <div class="card-block">
+                  <div class="row">
+                    <div class="col-md-10 pt-4 px-0">
+                      <div class="px-3">
+                        <router-link
+                          title="Show this Joy"
+                          v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + inspired.id }"
+                        >
+                          <h1 class="card-text brandname pink">{{ inspired.body }}</h1>
+                        </router-link>
+                      </div>
+                      <div class="card-footer mb-2">
+                        <div class="card-text text-right">
+                          <small class="name text-uppercase">
+                            <router-link title="View Joys" v-bind:to="{ path: '/' + inspired.username }">
+                              {{ inspired.username }}
+                            </router-link>
+                            wrote this {{ inspired.updated_at | diffForHumans }}
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 pilledge p-0">
+                      <router-link
+                        title="Spread Joy"
+                        v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/share/' + inspired.id }"
+                      >
+                        <img src="/images/spreads_joy_icon.svg" alt="spreads joy" title="Spreads Joy" height="40" />
+                        <br />
+                        Spreads
+                        <br />
+                        Joy
+                      </router-link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -45,7 +45,7 @@
           </div>
           <div class="col text-center">
             <div v-if="pagyObj" class="btn-group">
-              <button @click="goToPage(1)" :disabled="!pagyObj.prev" class="btn btn-primary btn-sm">Start</button>
+              <button @click="goToPage(1)" :disabled="!pagyObj.prev" class="btn btn-primary btn-sm">First</button>
 
               <button @click="goToPage(pagyObj.prev)" :disabled="!pagyObj.prev" class="btn btn-primary btn-sm">
                 Previous
