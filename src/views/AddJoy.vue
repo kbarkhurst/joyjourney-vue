@@ -7,14 +7,14 @@
             {{ error }}
           </li>
         </ul>
-        <div class="col-md-8 mx-auto">
-          <img class="my-3" src="/images/whatbrought-joy.png" width="470" alt="What brought you joy?" />
+        <div class="col-md-8 mx-auto text-center">
+          <img class="mb-2" src="/images/whatbrought-joy.png" width="450" alt="What brought you joy?" />
           <div class="username">
             <!-- <h2>What Brought You Joy Today, {{ getCurrentUsername() }}?</h2> -->
             <form v-on:submit.prevent="createJoy()">
               <div class="form-group">
                 <textarea
-                  class="form-control bgtan"
+                  class="form-control bgtan addjoy"
                   placeholder="Add your joy"
                   v-model="body"
                   id="broughtjoy"

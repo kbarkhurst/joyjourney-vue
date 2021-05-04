@@ -39,6 +39,9 @@
         <ul class="navbar-nav">
           <!-- <li class="nav-item" v-if="isLoggedIn()">Hi, {{ getCurrentUsername() }}!</li> -->
           <li class="nav-item" v-if="!isLoggedIn()">
+            <router-link to="/" class="nav-link">Home</router-link>
+          </li>
+          <li class="nav-item" v-if="!isLoggedIn()">
             <router-link to="/signup" class="nav-link">Sign Up</router-link>
           </li>
 
@@ -97,7 +100,6 @@
 <style>
 /* @import "src/styles/styles.css"; */
 #app {
-  text-align: center;
   color: #2c3e50;
   background-color: #fcf6d1;
   height: 100vh;

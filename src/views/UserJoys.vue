@@ -1,19 +1,28 @@
-/* eslint-disable prettier/prettier */
 <template>
   <main>
     <div class="banner">
-      <div class="col-12 col-md-10 col-lg-8 mx-auto pb-4">
-        <h2>{{ userName }}'s Joys</h2>
-        <div v-if="userInfo.journal_description">
-          {{ userInfo.journal_description }}
+      <div class="row justify-content-center">
+        <div class="col-md-9 text-left">
+          <h2 class="float-left">About {{ userName }}</h2>
+          <img
+            v-if="userName === 'Patricia'"
+            src="/images/patricia-barnes.jpg"
+            class="float-left rounded-circle moon"
+            width="200"
+          />
+          <div class="float-left" v-if="userInfo && userInfo.journal_description">
+            {{ userInfo.journal_description }}
+          </div>
         </div>
+      </div>
+      <div class="col-12 col-md-10 col-lg-8 mx-auto pb-4">
         <!-- <label class="h4" for="joysearch">Search your Joy Journey</label> -->
-        <form class="card card-sm">
+        <!-- <form class="card card-sm">
           <div class="card-body row no-gutters align-items-center">
             <div class="col-auto">
               <i class="fas fa-search h4 text-body"></i>
             </div>
-            <!--end of col-->
+           
             <div class="col">
               <input
                 v-model="keyword_search"
@@ -25,13 +34,13 @@
                 @keydown.enter.prevent="keywordSearchMyJoys()"
               />
             </div>
-            <!--end of col-->
+           
             <div class="col-auto">
               <button @click.prevent="keywordSearchMyJoys()" class="btn btn-lg btn-primary btn-success">Search</button>
             </div>
-            <!--end of col-->
+           
           </div>
-        </form>
+        </form> -->
       </div>
     </div>
     <div class="container-fluid">
@@ -42,21 +51,16 @@
         </div>
         <div v-if="joys.length > 0">
           <div class="container joys">
-            <button>1997</button>
-            <button>1998</button>
-            <button>1999</button>
-            <p v-if="pagyObj">Showing {{ pagyObj.items }} Of {{ totalCount }} of Your Joys</p>
-            <div v-if="pagyObj">
-              <!-- buttons -->
-              <button @click="goToPage(1)" :disabled="!pagyObj.prev">Start</button>
-
-              <button @click="goToPage(pagyObj.prev)" :disabled="!pagyObj.prev">Previous</button>
-
-              <input v-model.number="pageNum" @change="keywordSearchMyJoys()" />
-
-              <button @click="goToPage(pagyObj.next)" :disabled="!pagyObj.next">Next</button>
-
-              <button @click="goToPage(pagyObj.last)" :disabled="!pagyObj.next">>></button>
+            <div class="row justify-content-evenly">
+              <div class="col-md-10">
+                <div class="btn-group" v-for="year in years" v-bind:key="year.id">
+                  <button class="btn btn-primary me-2" v-on:click="onYearFilter(year)">{{ year }}</button>
+                </div>
+                <button class="btn btn-primary me-2" v-on:click="keywordSearchMyJoys()">All</button>
+                <p v-if="pagyObj">{{ totalCount }} Joys</p>
+                <p v-if="pagyObj">Showing {{ pagyObj.items }} Of {{ totalCount }} of Your Joys</p>
+                <h2>{{ userName }}'s Joys</h2>
+              </div>
             </div>
             <div class="col-md-10 mx-auto">
               <div class="row my-4 justify-content-center">
@@ -103,6 +107,18 @@
                 </div>
               </div>
             </div>
+            <div class="text-center" v-if="pagyObj">
+              <!-- buttons -->
+              <button @click="goToPage(1)" :disabled="!pagyObj.prev">Start</button>
+
+              <button @click="goToPage(pagyObj.prev)" :disabled="!pagyObj.prev">Previous</button>
+
+              <input v-model.number="pageNum" @change="keywordSearchMyJoys()" />
+
+              <button @click="goToPage(pagyObj.next)" :disabled="!pagyObj.next">Next</button>
+
+              <button @click="goToPage(pagyObj.last)" :disabled="!pagyObj.next">>></button>
+            </div>
           </div>
         </div>
         <div v-else>
@@ -113,19 +129,6 @@
   </main>
 </template>
 
-<style scoped>
-.form-control-borderless {
-  border: none;
-}
-
-.form-control-borderless:hover,
-.form-control-borderless:active,
-.form-control-borderless:focus {
-  border: none;
-  outline: none;
-  box-shadow: none;
-}
-</style>
 <script>
 import axios from "axios";
 import dayjs from "dayjs";
@@ -145,6 +148,7 @@ export default {
       pageNum: 1,
       pagyObj: null,
       userInfo: null,
+      years: [],
     };
   },
   computed: {
@@ -161,8 +165,15 @@ export default {
     },
   },
   created: function () {
-    // this.indexJoys();
-    this.keywordSearchMyJoys();
+    axios
+      .get(`/api/users?username=${this.userName}`)
+      .then(({ data }) => {
+        this.userInfo = data;
+        // this.indexJoys();
+        this.keywordSearchMyJoys();
+        this.viewByYear();
+      })
+      .catch((error) => (this.errors = error));
     dayjs.extend(relativeTime);
   },
   filters: {
@@ -204,20 +215,14 @@ export default {
       // console.log("/api/joys/?keyword_search=" + this.keyword_search + "&user_id=" + this.user_id);
       // console.log(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${this.user_id}&page=${this.pageNum}`);
       axios
-        .get(`/api/users?username=${this.userName}`)
-        .then(({ data }) => {
-          this.userInfo = data;
-          axios
-            .get(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${data.user}&page=${this.pageNum}`)
-            .then((response) => {
-              this.joys = response.data.joys;
-              this.pagyObj = response.data.pagy;
-              this.pageNum = this.pagyObj.page;
-              console.log("search results joys:", this.joys);
-              console.log("pagy:", this.pagyObj);
-            });
-        })
-        .catch((error) => (this.errors = error));
+        .get(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${this.userInfo.user}&page=${this.pageNum}`)
+        .then((response) => {
+          this.joys = response.data.joys;
+          this.pagyObj = response.data.pagy;
+          this.pageNum = this.pagyObj.page;
+          console.log("search results joys:", this.joys);
+          console.log("pagy:", this.pagyObj);
+        });
     },
     getCurrentUsername: function () {
       return localStorage.getItem("username");
@@ -228,25 +233,27 @@ export default {
       // this.indexJoys();
       this.keywordSearchMyJoys();
     },
+    onYearFilter: function (year) {
+      let apiUrl = `/api/joys/?user_id=${this.userInfo.user}&page=${this.pageNum}&year=${year}`;
+      if (this.keyword_search || this.keyword_search.length > 0) {
+        apiUrl += `&keyword_search=${this.keyword_search}`;
+      }
+      axios.get(apiUrl).then((response) => {
+        this.joys = response.data.joys;
+        this.pagyObj = response.data.pagy;
+        this.pageNum = this.pagyObj.page;
+        console.log("search results joys:", this.joys);
+        console.log("pagy:", this.pagyObj);
+      });
+    },
     spreadsJoy: function () {
       console.log("Spreading Joy");
     },
-    createJoy: function () {
-      console.log("Creating your new joy.");
-      var params = {
-        body: this.body,
-        visibility: this.visibility,
-      };
-      axios
-        .post("/api/joys/", params)
-        .then((response) => {
-          console.log(response.data.joys);
-          // this.$router.push("{ path: '/' + getCurrentUsername() }");
-          this.$router.push("/");
-        })
-        .catch((error) => {
-          this.errors = error.response.data.errors;
-        });
+    viewByYear: function () {
+      axios.get(`/api/joys/years/${this.userInfo.user}`).then((response) => {
+        this.years = response.data.years;
+        console.log("Entries for these years:", this.years);
+      });
     },
   },
 };

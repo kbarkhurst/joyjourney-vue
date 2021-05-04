@@ -1,9 +1,9 @@
 <template>
   <main>
-    <div class="container">
+    <div class="container text-center">
       <div class="row">
         <div class="col-md-8 mx-auto mt-5">
-          <h1>Edit your joy</h1>
+          <h1 class="serif orange">Edit your joy</h1>
           <p>Created On: {{ joy.created_at }} | Last Updated:{{ joy.updated_at }}</p>
           <ul>
             <li class="text-danger" v-for="error in errors" v-bind:key="error">

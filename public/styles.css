@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Libre+Caslon+Text:wght@400;700&family=Montserrat&display=swap');
-
+#app a {
+  color:#a00852;
+  text-decoration: none;
+}
+.sans-serif {
+  font-family: 'Montserrat', sans-serif;
+}
+.serif {
+  font-family: 'Libre Caslon Text', serif;
+}
 .script {
   font-family: 'Libre Caslon Text', serif;
   font-size: 2rem;
@@ -19,7 +28,7 @@
   linear-gradient( to left, black, white); */
 background-blend-mode:  
   overlay, multiply;
-animation-duration: 10s;
+animation-duration: 5s;
 animation-name: background-color-animation;
 animation-iteration-count: infinite;
 animation-direction: alternate;
@@ -31,8 +40,10 @@ animation-timing-function: ease-in-out;
 }
 main {
   margin-left:17rem;
+  /* left:272px; */
   padding:15px;
   height:100vmin;
+  position:relative;
   
 }
 @keyframes background-color-animation {
@@ -50,19 +61,27 @@ body {
   width: 100%;
   background-color: #fcf6d1;
 }
+.bg-cream {
+  background-color: #fcf6d1;
+}
+.name a {
+  color: #2c3e50 !important;
+  text-decoration:none;
+}
+.name a:hover {
+  text-decoration:underline !important;
+}
 textarea.addjoy  
 {  
   font-family: 'Just Another Hand', cursive; 
-  font-size: 3rem;
+  font-size: 2.5rem;
   color:#a00852 !important;
   padding: 1.0rem 1.25rem;
 }
-a {
-  color:#a00852 !important;
-  text-decoration: none !important;
-}
+
 .card h1 {
   font-size:1.5rem;
+  
 }
 #app {
  font-family: 'Montserrat', sans-serif;
@@ -72,10 +91,20 @@ a {
 }
 .joys .card {
   background:rgba(256,256,256,.75);
+  text-align:center;
   /* background: rgba(253, 210, 136, 0.2); */
   /* background:#f8e2a6; */
   /* background: rgb(247,243,208);
   background: linear-gradient(180deg, rgba(247,243,208,1) 0%, rgba(251,246,213,1) 100%); */
+}
+.bgorangegrad {
+  background: rgb(244,121,35);
+background: radial-gradient(circle, rgba(244,121,35,1) 11%, rgba(240,95,47,1) 100%);
+color:white;
+}
+.bgorangegrad a.router-link-active {
+  color:#fff !important;
+  text-decoration:underline !important;
 }
 .bg-orangegradient {
   background:url('/images/decorative-bloom.png'),
@@ -176,14 +205,24 @@ box-shadow: 10px 0px 13px -4px rgba(58,3,30,0.22);
   font-weight: bold;
   margin: 0 0 25px;
 }
-main .form-control {
+/* main .form-control {
   background:rgba(252,246,209,1.0);
+} */
+#viewjoys {
+  margin-top:200px;
+}
+.scaled { transform: scale(1.05);}
+.scaled.card h1 {
+  font-size:2.0rem;
 }
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.05); }
 
 .border-radius-8 {
   border-radius: 8px;
+}
+.bg-pink {
+  background-color:#a00852;
 }
 .pink {
   color:#a00852;
@@ -198,6 +237,10 @@ main .form-control {
   background-color:#ff8c00;
   color: rgba(252,246,209,1.0)!important;
   /* background-color: #ffd68a; */
+}
+.offsetpaddingmargin {
+  margin:-15px !important;
+  padding:15px;
 }
 .bg-oggradient {
   background: rgb(244,121,35);
@@ -285,6 +328,10 @@ background: radial-gradient(circle, rgba(244,121,35,1) 11%, rgba(240,95,47,1) 10
   position: relative;
   top: 1px;
 }
+.bgtan-gradient {
+  background: rgba(253,206,136,1) 100%;
+  /* background: linear-gradient(180deg, rgba(254,158,86,1) 0%, rgba(253,242,175,1) 47%, rgba(253,242,175,1) 68%, rgba(253,206,136,1) 100%); */
+}
 .btn-primary.btn-tan {
   background: linear-gradient(180deg, rgba(254,158,86,1) 0%, rgba(253,242,175,1) 47%, rgba(253,242,175,1) 68%, rgba(253,206,136,1) 100%);
 }
@@ -317,4 +364,15 @@ background: radial-gradient(circle, rgba(244,121,35,1) 11%, rgba(240,95,47,1) 10
 }
 .signup-form a:hover {
   text-decoration: underline;
+}
+.moon {
+  border-radius: 50%;
+  height: 225px; 
+  width:225px;
+  background-color: #2badd9;
+  float: right;
+  shape-outside: inset(1% round 50%);
+  margin-left: 20px;
+  margin-bottom: 10px;
+  margin-top:20px;
 }
