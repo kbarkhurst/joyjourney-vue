@@ -4,6 +4,9 @@
     <div class="banner">
       <div class="col-12 col-md-10 col-lg-8 mx-auto pb-4">
         <h2>{{ userName }}'s Joys</h2>
+        <div v-if="userInfo.journal_description">
+          {{ userInfo.journal_description }}
+        </div>
         <!-- <label class="h4" for="joysearch">Search your Joy Journey</label> -->
         <form class="card card-sm">
           <div class="card-body row no-gutters align-items-center">
@@ -141,6 +144,7 @@ export default {
       keyword_search: "",
       pageNum: 1,
       pagyObj: null,
+      userInfo: null,
     };
   },
   computed: {
@@ -198,14 +202,22 @@ export default {
       }
       console.log("keyword search:", this.keyword_search);
       // console.log("/api/joys/?keyword_search=" + this.keyword_search + "&user_id=" + this.user_id);
-      console.log(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${this.user_id}&page=${this.pageNum}`);
-      axios.get(`/api/joys/?keyword_search=${this.keyword_search}&user_id=1&page=${this.pageNum}`).then((response) => {
-        this.joys = response.data.joys;
-        this.pagyObj = response.data.pagy;
-        this.pageNum = this.pagyObj.page;
-        console.log("search results joys:", this.joys);
-        console.log("pagy:", this.pagyObj);
-      });
+      // console.log(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${this.user_id}&page=${this.pageNum}`);
+      axios
+        .get(`/api/users?username=${this.userName}`)
+        .then(({ data }) => {
+          this.userInfo = data;
+          axios
+            .get(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${data.user}&page=${this.pageNum}`)
+            .then((response) => {
+              this.joys = response.data.joys;
+              this.pagyObj = response.data.pagy;
+              this.pageNum = this.pagyObj.page;
+              console.log("search results joys:", this.joys);
+              console.log("pagy:", this.pagyObj);
+            });
+        })
+        .catch((error) => (this.errors = error));
     },
     getCurrentUsername: function () {
       return localStorage.getItem("username");
