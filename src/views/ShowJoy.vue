@@ -7,7 +7,7 @@
           {{ error }}
         </li>
       </ul>
-      <div v-if="joy.parents.length > 0" class="my-5">
+      <div v-if="joy.parents && joy.parents.length > 0" class="my-5">
         <!-- <p>More</p> -->
         <h3>Inspired by</h3>
         <div v-for="parent in joy.parents" v-bind:key="parent.id">
@@ -31,7 +31,7 @@
           <!-- | Last Updated:{{ joy.updated_at | diffForHumans }} -->
         </small>
       </div>
-      <div v-if="joy.inspireds.length > 0">
+      <div v-if="joy.inspireds && joy.inspireds.length > 0">
         <hr />
         <h2>Inspired The Following</h2>
         <div v-for="inspired in joy.inspireds" v-bind:key="inspired.id">
@@ -48,7 +48,7 @@
             </router-link>
 
             <small class="text-uppercase">
-              {{ inspired.username }} wrote this {{ inspired.created_at | diffForHumans }} 
+              {{ inspired.username }} wrote this {{ inspired.created_at | diffForHumans }}
               <!-- | {{ inspired.visibility }} -->
             </small>
           </div>
@@ -75,11 +75,16 @@ export default {
     };
   },
   created: function () {
-    axios.get(`/api/joys/${this.$route.params.id}`).then((response) => {
-      console.log(`/api/joys/${this.$route.params.id}`);
-      console.log(response.data);
-      this.joy = response.data;
-    });
+    this.$watch(
+      () => this.$route.params.id,
+      (toJoyId, fromJoyId) => {
+        console.log(`To ${toJoyId}`, `From ${fromJoyId}`);
+        // react to route changes...
+        this.fetchJoy(toJoyId);
+      }
+    );
+
+    this.fetchJoy(this.$route.params.id);
     dayjs.extend(relativeTime);
   },
   filters: {
@@ -92,6 +97,13 @@ export default {
     },
   },
   methods: {
+    fetchJoy(toJoyId) {
+      axios.get(`/api/joys/${toJoyId}`).then((response) => {
+        console.log(`/api/joys/${toJoyId}`);
+        console.log(response.data);
+        this.joy = response.data;
+      });
+    },
     goBack: function () {
       return this.$router.go(-1);
     },
