@@ -48,7 +48,8 @@ const router = new VueRouter({
     },
     {
       path: "/:username",
-      component: () => import("../views/JoysNew.vue"),
+      name: "User",
+      component: () => import("../views/UserJoys.vue"),
     },
     // {
     //   path: "/:username/joys",

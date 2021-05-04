@@ -8,7 +8,9 @@
             <div class="my-4">
               <p class="mb-0">{{ joy.body }}</p>
               <small class="text-uppercase">
-                <a href="#">{{ joy.username }}</a>
+                <router-link title="View Joys" v-bind:to="{ path: '/' + joy.username }">
+                  {{ joy.username }}
+                </router-link>
                 wrote this {{ joy.updated_at | diffForHumans }}
               </small>
             </div>
@@ -51,7 +53,7 @@ export default {
   methods: {
     indexJoys: function () {
       axios.get("/api/joys").then((response) => {
-        this.joys = response.data;
+        this.joys = response.data.joys;
         console.log("all joys:", this.joys);
       });
     },
