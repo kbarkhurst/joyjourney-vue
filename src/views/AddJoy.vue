@@ -14,11 +14,12 @@
             <form v-on:submit.prevent="createJoy()">
               <div class="form-group">
                 <textarea
-                  class="form-control bgtan addjoy"
+                  class="form-control addjoy"
                   placeholder="Add your joy"
                   v-model="body"
                   id="broughtjoy"
                   rows="6"
+                  required
                 ></textarea>
               </div>
               <div class="form-group my-3">
@@ -57,7 +58,6 @@ export default {
       return localStorage.getItem("username");
     },
     createJoy: function () {
-      console.log("Creating your new joy.");
       // FRONT END CATCH
       // if (!this.body) {
       //   alert("Joy cannot be empty");
@@ -67,6 +67,7 @@ export default {
         body: this.body,
         visibility: this.visibility,
       };
+      console.log("Creating your new joy.");
       axios
         .post("/api/joys/", params)
         .then((response) => {
@@ -74,8 +75,8 @@ export default {
           this.$router.push({ name: "MyJoys" });
         })
         .catch((error) => {
-          console.error(error);
-          this.errors = error.response.data.errors;
+          console.log(error.response);
+          this.errors = error.response.data.error;
         });
     },
   },

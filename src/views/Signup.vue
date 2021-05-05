@@ -3,7 +3,8 @@
     <div class="login">
       <div class="signup-form">
         <form v-on:submit.prevent="submit()">
-          <h2>Start your Joy Journey</h2>
+          <h2 class="mb-1">Start your Joy Journey</h2>
+          <p>Your free account allows you to create and reshare joys.</p>
           <ul>
             <li class="text-danger" v-for="error in errors" v-bind:key="error">
               {{ error }}

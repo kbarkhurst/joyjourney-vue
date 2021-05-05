@@ -1,18 +1,15 @@
 <template>
   <main>
-    <div class="container-fluid sticky-top position-fixed bgorangegrad offsetpaddingmargin">
+    <div id="topbar" class="container-fluid sticky-top position-fixed bgorangegrad offsetpaddingmargin">
       <div class="w-75 text-center pt-5">
         <div class="row">
           <div class="col-md-6">
             <h1>Public Joys</h1>
           </div>
           <div class="col-md-6">
-            <form class="card card-sm">
-              <div class="card-body p-0 row no-gutters align-items-center">
-                <div class="col-auto">
-                  <i class="fas fa-search h4 text-body"></i>
-                </div>
-                <div class="col">
+            <form id="search" class="card card-sm">
+              <div class="card-body p-1 row no-gutters align-items-center">
+                <div class="col ms-2">
                   <input
                     v-model="keyword_search"
                     class="form-control form-control-lg form-control-borderless"
@@ -24,7 +21,8 @@
                   />
                 </div>
                 <div class="col-auto">
-                  <button @click.prevent="keywordSearchMyJoys()" class="btn btn-lg btn-primary btn-success">
+                  <button @click.prevent="keywordSearchMyJoys()" class="btn btn-lg btn-primary">
+                    <i class="bi-search pe-2" style="font-size: 1.5rem"></i>
                     Search
                   </button>
                 </div>
@@ -63,7 +61,7 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid">
+    <div id="content" class="container-fluid bottom">
       <div id="viewjoys" class="row py-5 justify-content-center">
         <div v-if="keyword_search" class="text-center font-bold">
           Your search results for
@@ -102,9 +100,17 @@
                         </div>
                         <div class="col-md-2 pilledge p-0">
                           <router-link
+                            v-if="user_id"
                             title="Spread Joy"
                             v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/share/' + joy.id }"
                           >
+                            <img src="/images/spreads_joy_icon.svg" alt="spreads joy" title="Spreads Joy" height="40" />
+                            <br />
+                            Spreads
+                            <br />
+                            Joy
+                          </router-link>
+                          <router-link title="Spread Joy" v-bind:to="{ path: '/signup' }">
                             <img src="/images/spreads_joy_icon.svg" alt="spreads joy" title="Spreads Joy" height="40" />
                             <br />
                             Spreads
@@ -195,14 +201,16 @@ export default {
       }
       console.log("keyword search:", this.keyword_search);
       // console.log("/api/joys/?keyword_search=" + this.keyword_search + "&user_id=" + this.user_id);
-      console.log(`/api/joys/?keyword_search=${this.keyword_search}&page=${this.pageNum}`);
-      axios.get(`/api/joys/?keyword_search=${this.keyword_search}&page=${this.pageNum}`).then((response) => {
-        this.joys = response.data.joys;
-        this.pagyObj = response.data.pagy;
-        this.pageNum = this.pagyObj.page;
-        console.log("search results joys:", this.joys);
-        console.log("pagy:", this.pagyObj);
-      });
+      console.log(`/api/joys/?keyword_search=${this.keyword_search}&visibility=true&page=${this.pageNum}`);
+      axios
+        .get(`/api/joys/?keyword_search=${this.keyword_search}&visibility=true&page=${this.pageNum}`)
+        .then((response) => {
+          this.joys = response.data.joys;
+          this.pagyObj = response.data.pagy;
+          this.pageNum = this.pagyObj.page;
+          console.log("search results joys:", this.joys);
+          console.log("pagy:", this.pagyObj);
+        });
     },
     getCurrentUsername: function () {
       return localStorage.getItem("username");

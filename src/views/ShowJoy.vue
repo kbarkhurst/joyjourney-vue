@@ -10,7 +10,7 @@
             </li>
           </ul>
           <div v-if="joy.parents && joy.parents.length > 0" class="my-5">
-            <h5 class="sans-serif text-center text-uppercase">Inspired by</h5>
+            <h5 class="sans-serif text-center text-uppercase">The Joy That Inspired You</h5>
             <div v-for="parent in joy.parents" v-bind:key="parent.id">
               <div class="card my-3 px-0 text-center shadow scaleddown grow">
                 <div class="card-block">
@@ -101,7 +101,7 @@
       <div class="row">
         <div class="col-md-10 mx-auto">
           <div v-if="joy.inspireds && joy.inspireds.length > 0" class="my-5">
-            <h5 class="mb-3 sans-serif text-center text-uppercase">Inspired The Following New Joys</h5>
+            <h5 class="mb-3 sans-serif text-center text-uppercase">New joys inspired by your joy</h5>
             <div v-for="inspired in joy.inspireds" v-bind:key="inspired.id">
               <div class="card my-3 px-0 text-center shadow scaleddown grow">
                 <div class="card-block">

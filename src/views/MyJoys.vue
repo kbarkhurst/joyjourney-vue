@@ -1,19 +1,15 @@
-/* eslint-disable prettier/prettier */
 <template>
   <main>
-    <div class="container-fluid sticky-top position-fixed bgorangegrad offsetpaddingmargin pb-4">
+    <div id="topbar" class="container-fluid sticky-top position-fixed bgorangegrad offsetpaddingmargin pb-4">
       <div class="w-75 text-center pt-5">
         <div class="row">
-          <div class="col-md-5">
+          <div class="col-sm-5">
             <h1>My Joys</h1>
           </div>
-          <div class="col-md-7">
-            <form class="search card card-sm">
-              <div class="card-body p-0 row no-gutters align-items-center">
-                <div class="col-auto">
-                  <i class="fas fa-search h4 text-body"></i>
-                </div>
-                <div class="col">
+          <div class="col-sm-7">
+            <form id="search" class="card card-sm">
+              <div class="card-body p-1 row no-gutters align-items-center">
+                <div class="col ms-2">
                   <input
                     v-model="keyword_search"
                     class="form-control form-control-lg form-control-borderless"
@@ -25,7 +21,8 @@
                   />
                 </div>
                 <div class="col-auto">
-                  <button @click.prevent="keywordSearchMyJoys()" class="btn btn-lg btn-primary btn-success">
+                  <button @click.prevent="keywordSearchMyJoys()" class="btn btn-lg btn-primary">
+                    <i class="bi-search pe-2" style="font-size: 1.5rem"></i>
                     Search
                   </button>
                 </div>
@@ -54,8 +51,11 @@
               All
             </button>
           </div>
-          <div class="col text-center">
-            <small class="mb-2" style="display: block">Pagination / Displays up to 30 Joys per page</small>
+          <div class="col-12 col-sm-7 text-center">
+            <small v-if="pagyObj" class="mb-2 text-center font-bold" style="display: block">
+              Displaying {{ pagyObj.items }} of {{ totalCount }} Joys
+            </small>
+            <!-- <small class="mb-2" style="display: block">Pagination / Displays up to 30 Joys per page</small> -->
             <div v-if="pagyObj" class="btn-group">
               <button @click="goToPage(1)" :disabled="!pagyObj.prev" class="btn btn-primary">First</button>
 
@@ -73,15 +73,19 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid">
+    <div id="content" class="container-fluid">
       <div id="viewjoys" class="row py-5 justify-content-center">
+        <!-- <small v-if="pagyObj" class="mb-2 text-center font-bold" style="display: block">
+          {{ pagyObj.items }} of {{ totalCount }} Joys
+        </small> -->
         <div v-if="keyword_search" class="text-center font-bold">
-          Your search results for
+          <span v-if="pagyObj">{{ totalCount }}</span>
+          search results for
           <span class="text-uppercase">{{ keyword_search }}</span>
         </div>
-        <div v-if="joys.length > 0">
+        <div v-if="joys && joys.length > 0">
           <div class="container joys">
-            <div class="col-md-10 mx-auto">
+            <div class="col-md-10 col-12 mx-auto">
               <div class="row my-4 justify-content-center">
                 <div v-for="joy in joys" v-bind:key="joy.id">
                   <!-- <div v-if="joy.user_id == user_id"> -->
@@ -108,7 +112,7 @@
                                   v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/edit/' + joy.id }"
                                   class="ms-5"
                                 >
-                                  Edit Entry
+                                  <i class="bi bi-pen-fill"></i> Edit Entry
                                 </router-link>
                               </small>
                             </div>

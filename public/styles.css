@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Libre+Caslon+Text:wght@400;700&family=Montserrat&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css");
+
+html, body, #app {
+  height: 100%;
+  margin: 0;
+}
 #app a {
   color:#a00852;
   text-decoration: none;
@@ -14,10 +20,12 @@
   font-size: 2rem;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 720px) {
 .login {
   display: flex;
   align-items: center;
+  margin-left:auto;
+  margin-right:auto;
   /* margin-top:15%; */
 }
 }
@@ -33,18 +41,11 @@ animation-name: background-color-animation;
 animation-iteration-count: infinite;
 animation-direction: alternate;
 animation-timing-function: ease-in-out;
+height:100vh;
   /* background-repeat:no-repeat;
   background-size:cover;
   background-color:rgba(254,158,86,1.0);
   background-blend-mode: overlay; */
-}
-main {
-  margin-left:17rem;
-  /* left:272px; */
-  padding:15px;
-  height:100vmin;
-  position:relative;
-  
 }
 @keyframes background-color-animation {
   from {
@@ -87,7 +88,22 @@ p.credit {
  font-family: 'Montserrat', sans-serif;
  -webkit-font-smoothing: antialiased;
  -moz-osx-font-smoothing: grayscale;
- height:100%;
+ /* height:100%;
+ min-height:100vh; */
+}
+nav {
+    flex: 1 0 auto;
+}
+main {
+  padding:15px;
+  /* height:100vmin;
+  height:100%; */
+  /* height: 100vh;
+  position:relative; */
+  position: sticky;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 0 auto;
 }
 .joys .card {
   background:rgba(256,256,256,.75);
@@ -118,6 +134,19 @@ color:white;
   color:#ea3a1c;
   font-weight:700 !important;
 }
+#search {
+  background-color:rgba(252,246,209,.3);
+}
+#search .form-control {
+  background-color:rgba(256,256,256,1.0);
+}
+/*** Hacks for Positioning ***/
+#topbar {
+  max-height:275px;
+}
+#content {
+  margin-top:50px;
+}
 /** Side Nav **/
 #sideNav .navbar-nav .nav-item .nav-link {
   letter-spacing: 0.05rem;
@@ -134,12 +163,21 @@ color:white;
   outline-color: #d48a6e;
 }
 
-#sideNav a.router-link-exact-active,
 #sideNav a.router-link-active {
+  color:#a00852 !important;
+}
+#sideNav a.router-link-exact-active {
   color:#ea532e !important;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 720px) {
+  main {
+    margin-left:17rem;
+  }
+  /***Flexbox Hacks ****/
+/* #viewjoys {
+  margin-top:250px;
+} */
   #sideNav {
     text-align: center;
     position: fixed;
@@ -208,11 +246,9 @@ box-shadow: 10px 0px 13px -4px rgba(58,3,30,0.22);
 /* main .form-control {
   background:rgba(252,246,209,1.0);
 } */
-/* #viewjoys {
-  margin-top:200px;
-} */
+
 .scaleddown {transform: scale(.85);}
-.scaledup { transform: scale(1.06);}
+.scaledup { transform: scale(1.00);}
 .scaledup h1 { font-size:2.0rem;}
 .scaled.card h1 {
   font-size:2.0rem;
@@ -405,4 +441,12 @@ textarea.addjoy::placeholder {
 }
 .btn:focus {
   box-shadow: 0 0 0 0.25rem rgb(228,31,119 / 25%);
+}
+/***Flexbox Hacks ****/
+#viewjoys {
+  margin-top:150px;
+}
+.bottom {
+  flex-grow: 1;  /* ensures that the container will take up the full height of the parent container */
+  overflow-y: auto;  /* adds scroll to this container */
 }

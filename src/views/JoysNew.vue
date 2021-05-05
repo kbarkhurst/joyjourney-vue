@@ -27,36 +27,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="row bg-light py-5">
-      <div class="row justify-content-center">
-        <div class="col-12 col-md-10 col-lg-8">
-          <label class="h2" for="joysearch">Search your Joy Journey</label>
-          <form class="card card-sm">
-            <div class="card-body row no-gutters align-items-center">
-              <div class="col-auto">
-                <i class="fas fa-search h4 text-body"></i>
-              </div>
-              
-              <div class="col">
-                <input
-                  v-model="keyword_search"
-                  class="form-control form-control-lg form-control-borderless"
-                  type="search"
-                  placeholder="Enter Joyful Search Term"
-                  id="joysearch"
-                />
-              </div>
-              
-              <div class="col-auto">
-                <button @click.prevent="keywordSearchJoys" class="btn btn-lg btn-success" type="submit">Search</button>
-              </div>
-              
-            </div>
-          </form>
-        </div>
-        
-      </div>
-    </div> -->
       <div id="viewjoys" class="row py-5">
         <h2>Joys</h2>
 
@@ -136,7 +106,7 @@
                                 title="Edit this Joy"
                                 v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/edit/' + joy.id }"
                               >
-                                Edit
+                                <i class="bi bi-pen-fill"></i> Edit
                               </router-link>
                             </small>
                           </div>

@@ -1,18 +1,15 @@
 <template>
   <main>
-    <div class="container-fluid sticky-top position-fixed bgorangegrad offsetpaddingmargin pb-5">
+    <div id="topbar" class="container-fluid sticky-top position-fixed bgorangegrad offsetpaddingmargin pb-5">
       <div class="w-75 text-center pt-5">
         <div class="row">
           <div class="col-md-6">
             <h1>Public Joys</h1>
           </div>
           <div class="col-md-6">
-            <form class="card card-sm">
-              <div class="card-body p-0 row no-gutters align-items-center">
-                <div class="col-auto">
-                  <i class="fas fa-search h4 text-body"></i>
-                </div>
-                <div class="col">
+            <form id="search" class="card card-sm">
+              <div class="card-body p-1 row no-gutters align-items-center">
+                <div class="col ms-2">
                   <input
                     v-model="keyword_search"
                     class="form-control form-control-lg form-control-borderless"
@@ -24,7 +21,8 @@
                   />
                 </div>
                 <div class="col-auto">
-                  <button @click.prevent="keywordSearchMyJoys()" class="btn btn-lg btn-primary btn-success">
+                  <button @click.prevent="keywordSearchMyJoys()" class="btn btn-lg btn-primary">
+                    <i class="bi-search pe-2" style="font-size: 1.5rem"></i>
                     Search
                   </button>
                 </div>
@@ -42,34 +40,34 @@
             </div>
           </div> -->
           <div class="col text-center">
+            <small v-if="pagyObj" class="mb-2 text-center font-bold" style="display: block">
+              Displaying {{ pagyObj.items }} of {{ totalCount }} Joys
+            </small>
             <div v-if="pagyObj" class="btn-group">
-              <button @click="goToPage(1)" :disabled="!pagyObj.prev" class="btn btn-primary btn-sm">Start</button>
+              <button @click="goToPage(1)" :disabled="!pagyObj.prev" class="btn btn-primary">Start</button>
 
-              <button @click="goToPage(pagyObj.prev)" :disabled="!pagyObj.prev" class="btn btn-primary btn-sm">
+              <button @click="goToPage(pagyObj.prev)" :disabled="!pagyObj.prev" class="btn btn-primary">
                 Previous
               </button>
 
               <input v-model.number="pageNum" @change="keywordSearchMyJoys()" />
 
-              <button @click="goToPage(pagyObj.next)" :disabled="!pagyObj.next" class="btn btn-primary btn-sm">
-                Next
-              </button>
+              <button @click="goToPage(pagyObj.next)" :disabled="!pagyObj.next" class="btn btn-primary">Next</button>
 
-              <button @click="goToPage(pagyObj.last)" :disabled="!pagyObj.next" class="btn btn-primary btn-sm">
-                Last
-              </button>
+              <button @click="goToPage(pagyObj.last)" :disabled="!pagyObj.next" class="btn btn-primary">Last</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="container-fluid">
+    <div id="content" class="container-fluid">
       <div id="viewjoys" class="row py-5 justify-content-center">
         <div v-if="keyword_search" class="text-center font-bold">
-          Your search results for
+          <span v-if="pagyObj">{{ totalCount }}</span>
+          search results for
           <span class="text-uppercase">{{ keyword_search }}</span>
         </div>
-        <div v-if="joys.length > 0">
+        <div v-if="joys && joys.length > 0">
           <div class="container joys">
             <div class="col-md-10 mx-auto">
               <div class="row my-4 justify-content-center">
@@ -122,7 +120,7 @@
           </div>
         </div>
         <div v-else>
-          <p>Nothing matches your search</p>
+          <p class="text-center mt-5">Nothing matches your search</p>
         </div>
       </div>
     </div>
@@ -147,6 +145,7 @@ export default {
       keyword_search: "",
       pageNum: 1,
       pagyObj: null,
+      userInfo: null,
     };
   },
   computed: {

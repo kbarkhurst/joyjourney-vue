@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-orangegradient fixed-top" id="sideNav">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-orangegradient fixed-top" id="sideNav">
       <a class="navbar-brand">
-        <span class="d-block d-lg-none">Joy Journey</span>
+        <!-- <span class="d-block d-lg-none">Joy Journey</span> -->
         <span class="d-none d-lg-block">
           <a href="/">
             <img
@@ -122,6 +122,12 @@ export default {
   //   return {
   //     username: localStorage.getItem("username"),
   //   };
+  // },
+  // created: function () {
+  //   const contentPlacement =
+  //     document.getElementById("topbar").position().top + document.getElementById("topbar").outerHeight();
+  //   document.getElementById("content").css("margin-top", contentPlacement);
+  //   console.log(contentPlacement);
   // },
   methods: {
     isLoggedIn: function () {

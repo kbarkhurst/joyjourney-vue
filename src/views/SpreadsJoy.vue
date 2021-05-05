@@ -22,7 +22,7 @@
               </router-link>
               wrote {{ joy.updated_at | diffForHumans }}
             </small>
-            <div class="mt-3">
+            <div class="mt-5">
               <!-- <h2 class="mt-5 mb-3 script orange">Write how this brings you joy, too</h2> -->
               <form v-on:submit.prevent="createJoy()">
                 <div class="form-group">
@@ -62,6 +62,11 @@ export default {
       body: "",
       visibility: true,
     };
+  },
+  beforeCreate() {
+    if (!this.getCurrentUsername) {
+      this.$router.push({ name: "Signup" });
+    }
   },
   created: function () {
     axios.get(`/api/joys/${this.$route.params.id}`).then((response) => {
