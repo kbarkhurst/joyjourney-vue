@@ -71,14 +71,14 @@ body {
 .name a:hover {
   text-decoration:underline !important;
 }
-textarea.addjoy  
-{  
-  font-family: 'Just Another Hand', cursive; 
-  font-size: 2.5rem;
-  color:#a00852 !important;
-  padding: 1.0rem 1.25rem;
-}
 
+p.credit {
+  font-size:8px;
+}
+.search.card {
+  background:tomato;
+  padding:1%;
+}
 .card h1 {
   font-size:1.5rem;
   
@@ -208,9 +208,9 @@ box-shadow: 10px 0px 13px -4px rgba(58,3,30,0.22);
 /* main .form-control {
   background:rgba(252,246,209,1.0);
 } */
-#viewjoys {
+/* #viewjoys {
   margin-top:200px;
-}
+} */
 .scaleddown {transform: scale(.85);}
 .scaledup { transform: scale(1.06);}
 .scaledup h1 { font-size:2.0rem;}
@@ -342,7 +342,13 @@ background: radial-gradient(circle, rgba(244,121,35,1) 11%, rgba(240,95,47,1) 10
   background: radial-gradient(circle, rgba(228,31,119,1) 11%, rgba(205,38,109,1) 100%);
   border-color:rgb(228,31,119) !important;
   font-weight:600 !important;
-  font-size:1.5rem !important;
+  font-size:0.85rem;
+}
+.btn-primary.active {
+  background: rgba(253,242,175,1);
+background: linear-gradient(180deg, rgba(253,242,175,1) 0%,  rgba(253,242,175,1) 100%);
+color:rgb(228,31,119) !important;
+border:none;
 }
 
 .signup-form .btn {
@@ -377,4 +383,23 @@ background: radial-gradient(circle, rgba(244,121,35,1) 11%, rgba(240,95,47,1) 10
   margin-left: 20px;
   margin-bottom: 10px;
   margin-top:20px;
+}
+/***Placeholder input text **/
+textarea.addjoy  
+{  
+  font-family: 'Just Another Hand', cursive; 
+  font-size: 3.0rem;
+  color:#ea3a1c !important;
+  /* color:#a00852 !important; */
+  padding: 1.0rem 1.25rem;
+}
+textarea.addjoy::placeholder {
+  color: #cb3171;
+  font-size: 3.0;
+}
+.btn.btn-primary.sharejoy {
+  font-size:1.2rem;
+}
+.btn:focus {
+  box-shadow: 0 0 0 0.25rem rgb(228,31,119 / 25%);
 }

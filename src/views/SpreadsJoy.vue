@@ -1,6 +1,6 @@
 <template>
-  <main>
-    <div class="bgorangegrad offsetpaddingmargin text-center py-4">
+  <main class="imagery">
+    <!-- <div class="bgorangegrad offsetpaddingmargin text-center py-4">
       <h5>You are inspired by the following:</h5>
       <h3 class="mb-0 script">{{ joy.body }}</h3>
       <small>
@@ -9,19 +9,27 @@
         </router-link>
         wrote {{ joy.updated_at | diffForHumans }}
       </small>
-    </div>
-    <div class="container-fluid">
+    </div> -->
+    <div class="container-fluid text-center">
       <div class="row py-5">
-        <div class="col-md-10 bgtan-gradient mx-auto border-radius-8 jjshadow">
+        <div class="col-md-10 mx-auto border-radius-8">
           <div class="col-md-10 mx-auto pb-4">
-            <div>
-              <h2 class="mt-5 mb-3 script orange">Write how this brings you joy, too</h2>
+            <h5 class="text-light">You are inspired by the following joy:</h5>
+            <h3 class="text-light mb-0 script mb-3">{{ joy.body }}</h3>
+            <small class="text-light">
+              <router-link title="View Joys" v-bind:to="{ path: '/' + joy.username }">
+                {{ joy.username }}
+              </router-link>
+              wrote {{ joy.updated_at | diffForHumans }}
+            </small>
+            <div class="mt-3">
+              <!-- <h2 class="mt-5 mb-3 script orange">Write how this brings you joy, too</h2> -->
               <form v-on:submit.prevent="createJoy()">
                 <div class="form-group">
                   <textarea
                     class="form-control addjoy"
                     rows="6"
-                    placeholder="Add your joy..."
+                    placeholder="Write how this brings you joy, too"
                     v-model="body"
                   ></textarea>
                 </div>
@@ -32,7 +40,7 @@
                   </select>
                 </div>
                 <div class="form-group mt-3">
-                  <button type="submit" class="btn btn-primary btn-lg">Share Joy</button>
+                  <button type="submit" class="btn btn-primary btn-lg grow sharejoy">Share Your Joy</button>
                 </div>
               </form>
             </div>

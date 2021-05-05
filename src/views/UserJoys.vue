@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="banner">
-      <div class="row justify-content-center">
+      <div class="row justify-content-center pb-3">
         <div class="col-md-9 text-left">
           <h2 class="float-left">About {{ userName }}</h2>
           <img
@@ -15,33 +15,6 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-10 col-lg-8 mx-auto pb-4">
-        <!-- <label class="h4" for="joysearch">Search your Joy Journey</label> -->
-        <!-- <form class="card card-sm">
-          <div class="card-body row no-gutters align-items-center">
-            <div class="col-auto">
-              <i class="fas fa-search h4 text-body"></i>
-            </div>
-           
-            <div class="col">
-              <input
-                v-model="keyword_search"
-                class="form-control form-control-lg form-control-borderless"
-                type="search"
-                placeholder="Enter Joyful Search Term"
-                id="joysearch"
-                @search.prevent="keywordSearchMyJoys()"
-                @keydown.enter.prevent="keywordSearchMyJoys()"
-              />
-            </div>
-           
-            <div class="col-auto">
-              <button @click.prevent="keywordSearchMyJoys()" class="btn btn-lg btn-primary btn-success">Search</button>
-            </div>
-           
-          </div>
-        </form> -->
-      </div>
     </div>
     <div class="container-fluid">
       <div id="viewjoys" class="row py-5 justify-content-center">
@@ -53,13 +26,59 @@
           <div class="container joys">
             <div class="row justify-content-evenly">
               <div class="col-md-10">
-                <div class="btn-group" v-for="year in years" v-bind:key="year.id">
-                  <button class="btn btn-primary me-2" v-on:click="onYearFilter(year)">{{ year }}</button>
-                </div>
-                <button class="btn btn-primary me-2" v-on:click="keywordSearchMyJoys()">All</button>
-                <p v-if="pagyObj">{{ totalCount }} Joys</p>
-                <p v-if="pagyObj">Showing {{ pagyObj.items }} Of {{ totalCount }} of Your Joys</p>
                 <h2>{{ userName }}'s Joys</h2>
+                <!-- <small>Search joys by years</small>
+                <div class="btn-group" v-for="year in years" v-bind:key="year.id">
+                  <button class="btn btn-primary m-2" v-on:click="onYearFilter(year)">{{ year }}</button>
+                </div>
+                <button class="btn btn-primary m-2" v-on:click="keywordSearchMyJoys()">All</button>
+                <p v-if="pagyObj">{{ totalCount }} Joys</p>
+                <p v-if="pagyObj">Showing {{ pagyObj.items }} Of {{ totalCount }} of Your Joys</p> -->
+              </div>
+            </div>
+            <div class="row align-items-top mt-4">
+              <div class="col-md-5">
+                <small class="mb-2" style="display: block">Display joys by year</small>
+
+                <div class="btn-group" v-for="year in years" v-bind:key="year.id">
+                  <button
+                    class="btn btn-primary me-2"
+                    :class="{ active: yearSelected === year }"
+                    v-on:click="onYearFilter(year)"
+                  >
+                    {{ year }}
+                  </button>
+                </div>
+                <button
+                  class="btn btn-primary m-2"
+                  :class="{ active: yearSelected === null }"
+                  v-on:click="onYearFilter(null)"
+                >
+                  All
+                </button>
+                <!-- <p v-if="pagyObj">{{ totalCount }} Joys</p>
+            <p v-if="pagyObj">Showing {{ pagyObj.items }} Of {{ totalCount }} of Your Joys</p>
+            <h2>{{ userName }}'s Joys</h2> -->
+              </div>
+              <div class="col text-center">
+                <small class="mb-2" style="display: block">Pagination / Displays up to 30 Joys per page</small>
+                <div v-if="pagyObj" class="btn-group">
+                  <button @click="goToPage(1)" :disabled="!pagyObj.prev" class="btn btn-primary">First</button>
+
+                  <button @click="goToPage(pagyObj.prev)" :disabled="!pagyObj.prev" class="btn btn-primary">
+                    Previous
+                  </button>
+
+                  <input v-model.number="pageNum" @change="keywordSearchMyJoys()" />
+
+                  <button @click="goToPage(pagyObj.next)" :disabled="!pagyObj.next" class="btn btn-primary">
+                    Next
+                  </button>
+
+                  <button @click="goToPage(pagyObj.last)" :disabled="!pagyObj.next" class="btn btn-primary">
+                    Last
+                  </button>
+                </div>
               </div>
             </div>
             <div class="col-md-10 mx-auto">
@@ -149,6 +168,7 @@ export default {
       pagyObj: null,
       userInfo: null,
       years: [],
+      yearSelected: null,
     };
   },
   computed: {
@@ -234,6 +254,16 @@ export default {
       this.keywordSearchMyJoys();
     },
     onYearFilter: function (year) {
+      if (this.yearSelected === year) return;
+
+      if (!year) {
+        this.yearSelected = year;
+        this.keywordSearchMyJoys();
+        return;
+      } else {
+        this.yearSelected = year;
+      }
+
       let apiUrl = `/api/joys/?user_id=${this.userInfo.user}&page=${this.pageNum}&year=${year}`;
       if (this.keyword_search || this.keyword_search.length > 0) {
         apiUrl += `&keyword_search=${this.keyword_search}`;

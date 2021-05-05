@@ -70,6 +70,7 @@
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#awards">Awards</a></li> -->
         </ul>
       </div>
+      <p class="credit px-5">Joy Journey is a trademark of Barkhurst Creative, LLC. © 2021.</p>
     </nav>
 
     <!-- <nav class="navbar navbar-expand-sm navbar-light">

@@ -79,7 +79,7 @@
                     <div class="card-block">
                       <div class="row">
                         <div class="col-md-10 pt-4 px-0">
-                          <div class="px-3">
+                          <div class="px-4">
                             <router-link
                               title="View this Joy"
                               v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + joy.id }"

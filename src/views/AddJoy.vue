@@ -1,14 +1,14 @@
 <template>
   <main class="imagery">
     <div class="container-fluid">
-      <div class="row py-5">
+      <div class="row pt-3 pb-5">
         <ul>
           <li class="text-danger" v-for="error in errors" v-bind:key="error">
             {{ error }}
           </li>
         </ul>
         <div class="col-md-8 mx-auto text-center">
-          <img class="mb-2" src="/images/whatbrought-joy.png" width="450" alt="What brought you joy?" />
+          <img class="mb-2" src="/images/whatbrought-joy.png" width="400" alt="What brought you joy?" />
           <div class="username">
             <!-- <h2>What Brought You Joy Today, {{ getCurrentUsername() }}?</h2> -->
             <form v-on:submit.prevent="createJoy()">
@@ -38,19 +38,6 @@
   </main>
 </template>
 
-<style scoped>
-.form-control-borderless {
-  border: none;
-}
-
-.form-control-borderless:hover,
-.form-control-borderless:active,
-.form-control-borderless:focus {
-  border: none;
-  outline: none;
-  box-shadow: none;
-}
-</style>
 <script>
 import axios from "axios";
 
@@ -71,6 +58,11 @@ export default {
     },
     createJoy: function () {
       console.log("Creating your new joy.");
+      // FRONT END CATCH
+      // if (!this.body) {
+      //   alert("Joy cannot be empty");
+      //   return;
+      // }
       var params = {
         body: this.body,
         visibility: this.visibility,
@@ -78,10 +70,11 @@ export default {
       axios
         .post("/api/joys/", params)
         .then((response) => {
-          console.log(response.data);
+          console.log(response);
           this.$router.push({ name: "MyJoys" });
         })
         .catch((error) => {
+          console.error(error);
           this.errors = error.response.data.errors;
         });
     },

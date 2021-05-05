@@ -1,14 +1,14 @@
 /* eslint-disable prettier/prettier */
 <template>
   <main>
-    <div class="container-fluid sticky-top position-fixed bgorangegrad offsetpaddingmargin pb-5">
+    <div class="container-fluid sticky-top position-fixed bgorangegrad offsetpaddingmargin pb-4">
       <div class="w-75 text-center pt-5">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-5">
             <h1>My Joys</h1>
           </div>
-          <div class="col-md-6">
-            <form class="card card-sm">
+          <div class="col-md-7">
+            <form class="search card card-sm">
               <div class="card-body p-0 row no-gutters align-items-center">
                 <div class="col-auto">
                   <i class="fas fa-search h4 text-body"></i>
@@ -33,33 +33,45 @@
             </form>
           </div>
         </div>
-        <div class="row align-items-center mt-4">
-          <div class="col">
-            <div class="btn-group">
-              <button class="btn btn-primary me-2">2021</button>
-              <button class="btn btn-primary me-2">
-                All
-                <!-- <span v-if="pagyObj">{{ totalCount }}</span> -->
+        <div class="row align-items-top mt-4">
+          <div class="col-md-5">
+            <small class="mb-2" style="display: block">Display joys by year</small>
+
+            <div class="btn-group" v-for="year in years" v-bind:key="year.id">
+              <button
+                class="btn btn-primary me-2"
+                :class="{ active: yearSelected === year }"
+                v-on:click="onYearFilter(year)"
+              >
+                {{ year }}
               </button>
             </div>
+            <button
+                  class="btn btn-primary m-2"
+                  :class="{ active: yearSelected === null }"
+                  v-on:click="onYearFilter(null)"
+                >
+                  All
+                </button>
+            <!-- <button class="btn btn-primary m-2" v-on:click="keywordSearchMyJoys()">All</button> -->
+            <!-- <p v-if="pagyObj">{{ totalCount }} Joys</p>
+            <p v-if="pagyObj">Showing {{ pagyObj.items }} Of {{ totalCount }} of Your Joys</p>
+            <h2>{{ userName }}'s Joys</h2> -->
           </div>
           <div class="col text-center">
+            <small class="mb-2" style="display: block">Pagination / Displays up to 30 Joys per page</small>
             <div v-if="pagyObj" class="btn-group">
-              <button @click="goToPage(1)" :disabled="!pagyObj.prev" class="btn btn-primary btn-sm">First</button>
+              <button @click="goToPage(1)" :disabled="!pagyObj.prev" class="btn btn-primary">First</button>
 
-              <button @click="goToPage(pagyObj.prev)" :disabled="!pagyObj.prev" class="btn btn-primary btn-sm">
+              <button @click="goToPage(pagyObj.prev)" :disabled="!pagyObj.prev" class="btn btn-primary">
                 Previous
               </button>
 
               <input v-model.number="pageNum" @change="keywordSearchMyJoys()" />
 
-              <button @click="goToPage(pagyObj.next)" :disabled="!pagyObj.next" class="btn btn-primary btn-sm">
-                Next
-              </button>
+              <button @click="goToPage(pagyObj.next)" :disabled="!pagyObj.next" class="btn btn-primary">Next</button>
 
-              <button @click="goToPage(pagyObj.last)" :disabled="!pagyObj.next" class="btn btn-primary btn-sm">
-                Last
-              </button>
+              <button @click="goToPage(pagyObj.last)" :disabled="!pagyObj.next" class="btn btn-primary">Last</button>
             </div>
           </div>
         </div>
@@ -154,16 +166,23 @@
                           </div>
                         </div>
                         <div class="col-md-2 pilledge p-0">
-                          <router-link
-                            title="Spread Joy"
-                            v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/share/' + joy.id }"
-                          >
-                            <img src="/images/spreads_joy_icon.svg" alt="spreads joy" title="Spreads Joy" height="40" />
-                            <br />
-                            Spreads
-                            <br />
-                            Joy
-                          </router-link>
+                          <div style="margin-top: auto; margin-bottom: auto">
+                            <router-link
+                              title="Spread Joy"
+                              v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/share/' + joy.id }"
+                            >
+                              <img
+                                src="/images/spreads_joy_icon.svg"
+                                alt="spreads joy"
+                                title="Spreads Joy"
+                                height="40"
+                              />
+                              <br />
+                              Spreads
+                              <br />
+                              Joy
+                            </router-link>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -182,19 +201,6 @@
   </main>
 </template>
 
-<style scoped>
-.form-control-borderless {
-  border: none;
-}
-
-.form-control-borderless:hover,
-.form-control-borderless:active,
-.form-control-borderless:focus {
-  border: none;
-  outline: none;
-  box-shadow: none;
-}
-</style>
 <script>
 import axios from "axios";
 import dayjs from "dayjs";
@@ -213,11 +219,17 @@ export default {
       keyword_search: "",
       pageNum: 1,
       pagyObj: null,
+      userInfo: null,
+      years: [],
+      yearSelected: null,
     };
   },
   computed: {
     totalCount() {
       return this.pagyObj.items * this.pagyObj.pages;
+    },
+    userName() {
+      return this.$route.params.username;
     },
   },
   watch: {
@@ -226,8 +238,15 @@ export default {
     },
   },
   created: function () {
-    // this.indexJoys();
-    this.keywordSearchMyJoys();
+    axios
+      .get(`/api/users?username=${this.userName}`)
+      .then(({ data }) => {
+        this.userInfo = data;
+        // this.indexJoys();
+        this.keywordSearchMyJoys();
+        this.viewByYear();
+      })
+      .catch((error) => (this.errors = error));
     dayjs.extend(relativeTime);
   },
   filters: {
@@ -267,9 +286,9 @@ export default {
       }
       console.log("keyword search:", this.keyword_search);
       // console.log("/api/joys/?keyword_search=" + this.keyword_search + "&user_id=" + this.user_id);
-      console.log(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${this.user_id}&page=${this.pageNum}`);
+      // console.log(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${this.user_id}&page=${this.pageNum}`);
       axios
-        .get(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${this.user_id}&page=${this.pageNum}`)
+        .get(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${this.userInfo.user}&page=${this.pageNum}`)
         .then((response) => {
           this.joys = response.data.joys;
           this.pagyObj = response.data.pagy;
@@ -287,25 +306,55 @@ export default {
       // this.indexJoys();
       this.keywordSearchMyJoys();
     },
+    onYearFilter: function (year) {
+      if (this.yearSelected === year) return;
+
+      if (!year) {
+        this.yearSelected = year;
+        this.keywordSearchMyJoys();
+        return;
+      } else {
+        this.yearSelected = year;
+      }
+
+      let apiUrl = `/api/joys/?user_id=${this.userInfo.user}&page=${this.pageNum}&year=${year}`;
+      if (this.keyword_search || this.keyword_search.length > 0) {
+        apiUrl += `&keyword_search=${this.keyword_search}`;
+      }
+      axios.get(apiUrl).then((response) => {
+        this.joys = response.data.joys;
+        this.pagyObj = response.data.pagy;
+        this.pageNum = this.pagyObj.page;
+        console.log("search results joys:", this.joys);
+        console.log("pagy:", this.pagyObj);
+      });
+    },
+    // onYearFilter: function (year) {
+    //   if (this.yearSelected === year) return;
+
+    //   this.yearSelected = year;
+    //   console.log(this.yearSelected);
+
+    //   let apiUrl = `/api/joys/?user_id=${this.userInfo.user}&page=${this.pageNum}&year=${year}`;
+    //   if (this.keyword_search || this.keyword_search.length > 0) {
+    //     apiUrl += `&keyword_search=${this.keyword_search}`;
+    //   }
+    //   axios.get(apiUrl).then((response) => {
+    //     this.joys = response.data.joys;
+    //     this.pagyObj = response.data.pagy;
+    //     this.pageNum = this.pagyObj.page;
+    //     console.log("search results joys:", this.joys);
+    //     console.log("pagy:", this.pagyObj);
+    //   });
+    // },
     spreadsJoy: function () {
       console.log("Spreading Joy");
     },
-    createJoy: function () {
-      console.log("Creating your new joy.");
-      var params = {
-        body: this.body,
-        visibility: this.visibility,
-      };
-      axios
-        .post("/api/joys/", params)
-        .then((response) => {
-          console.log(response.data.joys);
-          // this.$router.push("{ path: '/' + getCurrentUsername() }");
-          this.$router.push("/");
-        })
-        .catch((error) => {
-          this.errors = error.response.data.errors;
-        });
+    viewByYear: function () {
+      axios.get(`/api/joys/years/${this.userInfo.user}`).then((response) => {
+        this.years = response.data.years;
+        console.log("Entries for these years:", this.years);
+      });
     },
   },
 };

@@ -101,7 +101,7 @@
       <div class="row">
         <div class="col-md-10 mx-auto">
           <div v-if="joy.inspireds && joy.inspireds.length > 0" class="my-5">
-            <h5 class="mb-3 sans-serif text-center text-uppercase">Inspired The Following</h5>
+            <h5 class="mb-3 sans-serif text-center text-uppercase">Inspired The Following New Joys</h5>
             <div v-for="inspired in joy.inspireds" v-bind:key="inspired.id">
               <div class="card my-3 px-0 text-center shadow scaleddown grow">
                 <div class="card-block">
