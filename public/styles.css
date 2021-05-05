@@ -348,7 +348,10 @@ background: radial-gradient(circle, rgba(244,121,35,1) 11%, rgba(240,95,47,1) 10
   background: rgba(253,242,175,1);
 background: linear-gradient(180deg, rgba(253,242,175,1) 0%,  rgba(253,242,175,1) 100%);
 color:rgb(228,31,119) !important;
-border:none;
+border-color: #E06D3E !important;
+border-width:2px;
+-webkit-box-shadow: 10px 0px 13px -4px rgba(58,3,30,0.22); 
+  box-shadow: 10px 0px 13px -4px rgba(58,3,30,0.22);
 }
 
 .signup-form .btn {

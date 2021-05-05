@@ -27,13 +27,6 @@
             <div class="row justify-content-evenly">
               <div class="col-md-10">
                 <h2>{{ userName }}'s Joys</h2>
-                <!-- <small>Search joys by years</small>
-                <div class="btn-group" v-for="year in years" v-bind:key="year.id">
-                  <button class="btn btn-primary m-2" v-on:click="onYearFilter(year)">{{ year }}</button>
-                </div>
-                <button class="btn btn-primary m-2" v-on:click="keywordSearchMyJoys()">All</button>
-                <p v-if="pagyObj">{{ totalCount }} Joys</p>
-                <p v-if="pagyObj">Showing {{ pagyObj.items }} Of {{ totalCount }} of Your Joys</p> -->
               </div>
             </div>
             <div class="row align-items-top mt-4">

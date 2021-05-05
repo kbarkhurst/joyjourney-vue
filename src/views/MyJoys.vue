@@ -47,16 +47,12 @@
               </button>
             </div>
             <button
-                  class="btn btn-primary m-2"
-                  :class="{ active: yearSelected === null }"
-                  v-on:click="onYearFilter(null)"
-                >
-                  All
-                </button>
-            <!-- <button class="btn btn-primary m-2" v-on:click="keywordSearchMyJoys()">All</button> -->
-            <!-- <p v-if="pagyObj">{{ totalCount }} Joys</p>
-            <p v-if="pagyObj">Showing {{ pagyObj.items }} Of {{ totalCount }} of Your Joys</p>
-            <h2>{{ userName }}'s Joys</h2> -->
+              class="btn btn-primary m-2"
+              :class="{ active: yearSelected === null }"
+              v-on:click="onYearFilter(null)"
+            >
+              All
+            </button>
           </div>
           <div class="col text-center">
             <small class="mb-2" style="display: block">Pagination / Displays up to 30 Joys per page</small>
@@ -77,53 +73,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="container-fluid sticky-top position-fixed bg-cream pb-4 ps-0">
-      <div class="row banner mb-3">
-        <div class="col-12 col-md-10 col-lg-8 py-4 mx-auto">
-          <h2>My Joys</h2>
-          <form class="card card-sm">
-            <div class="card-body row no-gutters align-items-center">
-              <div class="col-auto">
-                <i class="fas fa-search h4 text-body"></i>
-              </div>
-              <div class="col">
-                <input
-                  v-model="keyword_search"
-                  class="form-control form-control-lg form-control-borderless"
-                  type="search"
-                  placeholder="Enter Joyful Search Term"
-                  id="joysearch"
-                  @search.prevent="keywordSearchMyJoys()"
-                  @keydown.enter.prevent="keywordSearchMyJoys()"
-                />
-              </div>
-              <div class="col-auto">
-                <button @click.prevent="keywordSearchMyJoys()" class="btn btn-lg btn-primary btn-success">
-                  Search
-                </button>
-              </div>
-            </div>
-          </form>
-          <div v-if="keyword_search">
-            Your search results for
-            <span class="text-uppercase">{{ keyword_search }}</span>
-          </div>
-        </div>
-        <p v-if="pagyObj">Showing {{ pagyObj.items }} Of {{ totalCount }} of Your Joys</p>
-        <div v-if="pagyObj">
-          
-    <button @click="goToPage(1)" :disabled="!pagyObj.prev">Start</button>
-
-          <button @click="goToPage(pagyObj.prev)" :disabled="!pagyObj.prev">Previous</button>
-
-          <input v-model.number="pageNum" @change="keywordSearchMyJoys()" />
-
-          <button @click="goToPage(pagyObj.next)" :disabled="!pagyObj.next">Next</button>
-
-          <button @click="goToPage(pagyObj.last)" :disabled="!pagyObj.next">>></button>
-        </div>
-      </div>
-    </div> -->
     <div class="container-fluid">
       <div id="viewjoys" class="row py-5 justify-content-center">
         <div v-if="keyword_search" class="text-center font-bold">
