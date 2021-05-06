@@ -9,10 +9,9 @@
               {{ error }}
             </li>
           </ul>
-          {{ user_id }} {{ joy.user_id }}
-          <!-- If Joy is Yours -->
+          <!-- If Joy is Yours  {{ user_id }} {{ joy.user_id }}-->
           <div v-if="user_id == joy.user_id">
-            JOY IS YOURS
+            <!-- JOY IS YOURS -->
 
             <div v-if="joy.parents && joy.parents.length > 0" class="my-5">
               <h5 class="sans-serif text-center text-uppercase">Your Joy Was Inspired By This Joy</h5>
@@ -160,7 +159,7 @@
 
           <!-- If Joy is someone elses  -->
           <div v-if="user_id != joy.user_id">
-            JOY IS NOT YOURS
+            <!-- JOY IS NOT YOURS -->
             <div v-if="joy.parents && joy.parents.length > 0" class="row my-5">
               <h5 class="sans-serif text-center text-uppercase">The Joy That Inspired This Joy</h5>
               <div class="col-md-10 mx-auto">

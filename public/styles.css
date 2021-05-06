@@ -145,7 +145,7 @@ color:white;
   max-height:275px;
 }
 #content {
-  margin-top:50px;
+  /* margin-top:50px; */
 }
 /** Side Nav **/
 #sideNav .navbar-nav .nav-item .nav-link {

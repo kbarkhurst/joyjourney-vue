@@ -77,10 +77,20 @@
       </div>
       <div id="content" class="container-fluid text-center">
         <div id="viewmyjoys" class="row py-5 justify-content-center">
-          <div v-if="keyword_search" class="text-center font-bold">
+          <div v-if="yearSelected && keyword_search" class="text-center font-bold">
             <span v-if="pagyObj">{{ totalCount }}</span>
             search results for
             <span class="text-uppercase">{{ keyword_search }}</span>
+            - {{ yearSelected }}
+          </div>
+          <div v-if-else="keyword_search" class="text-center font-bold">
+            <span v-if="pagyObj">{{ totalCount }}</span>
+            search results for
+            <span class="text-uppercase">{{ keyword_search }}</span>
+          </div>
+          <div v-if-else="yearSelected" class="text-center font-bold">
+            <span v-if="pagyObj">{{ totalCount }}</span>
+            joys in {{ yearSelected }}
           </div>
           <div v-if="joys && joys.length > 0">
             <div class="container joys">
@@ -92,7 +102,7 @@
                       <div class="card-block">
                         <div class="row">
                           <div class="col-md-10 pt-4 px-0">
-                            <div class="px-3">
+                            <div class="px-4">
                               <router-link
                                 title="View this Joy"
                                 v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + joy.id }"
@@ -240,6 +250,10 @@
             <span v-if="pagyObj">{{ totalCount }}</span>
             search results for
             <span class="text-uppercase">{{ keyword_search }}</span>
+          </div>
+          <div v-if="yearSelected" class="text-center font-bold">
+            <span v-if="pagyObj">{{ totalCount }}</span>
+            joys in {{ yearSelected }}
           </div>
           <div v-if="joys && joys.length > 0">
             <div class="container joys">
@@ -402,6 +416,7 @@ export default {
         })
         .then((response) => {
           this.joys = response.data.joys;
+          // if (this.joys.length === 0) return;
           this.pagyObj = response.data.pagy;
           this.pageNum = this.pagyObj.page;
           console.log("all joys:", this.joys);
@@ -464,6 +479,7 @@ export default {
         this.pageNum = this.pagyObj.page;
         console.log("search results joys:", this.joys);
         console.log("pagy:", this.pagyObj);
+        this.scrollTo();
       });
     },
     showUser: function () {
