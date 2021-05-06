@@ -66,11 +66,6 @@ const router = new VueRouter({
       beforeEnter: guard,
     },
     {
-      path: "/:username",
-      name: "User",
-      component: () => import("../views/UserJoys.vue"),
-    },
-    {
       path: "/:username/joys",
       name: "MyJoys",
       component: () => import("../views/MyJoys.vue"),
@@ -92,10 +87,20 @@ const router = new VueRouter({
       component: () => import("../views/ExploreJoys.vue"),
     },
     {
+      path: "/:username/journal",
+      name: "UserJournal",
+      component: () => import("../views/Journal.vue"),
+    },
+    {
       path: "/:username/joys/edit/:id",
       name: "EditJoy",
       component: () => import("../views/EditJoy.vue"),
     },
+    // {
+    //   path: "/:username",
+    //   name: "User",
+    //   component: () => import("../views/UserJoys.vue"),
+    // },
   ],
 
   // scrollBehavior(to) {

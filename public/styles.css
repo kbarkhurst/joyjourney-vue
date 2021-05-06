@@ -443,8 +443,11 @@ textarea.addjoy::placeholder {
   box-shadow: 0 0 0 0.25rem rgb(228,31,119 / 25%);
 }
 /***Flexbox Hacks ****/
+#viewmyjoys {
+  margin-top:200px;
+}
 #viewjoys {
-  margin-top:150px;
+  margin-top:210px;
 }
 .bottom {
   flex-grow: 1;  /* ensures that the container will take up the full height of the parent container */

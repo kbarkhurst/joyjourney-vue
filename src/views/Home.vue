@@ -90,7 +90,7 @@
                           <div class="card-footer mb-2">
                             <div class="card-text text-right">
                               <small class="text-uppercase">
-                                <router-link title="View Joys" v-bind:to="{ path: '/' + joy.username }">
+                                <router-link title="View Joys" v-bind:to="{ path: '/' + joy.username + '/joys/'}">
                                   {{ joy.username }}
                                 </router-link>
                                 wrote this {{ joy.updated_at | diffForHumans }} |
