@@ -112,7 +112,8 @@
                                   v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/edit/' + joy.id }"
                                   class="ms-5"
                                 >
-                                  <i class="bi bi-pen-fill"></i> Edit Entry
+                                  <i class="bi bi-pen-fill"></i>
+                                  Edit Entry
                                 </router-link>
                               </small>
                             </div>
@@ -258,6 +259,14 @@ export default {
       this.pageNum = newPageNumber;
       // this.indexJoys();
       this.keywordSearchMyJoys();
+      this.scrollTo();
+    },
+    scrollTo: function () {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
     },
     onYearFilter: function (year) {
       if (this.yearSelected === year) return;

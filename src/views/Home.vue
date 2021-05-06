@@ -61,13 +61,15 @@
         </div>
       </div>
     </div>
-    <div id="content" class="container-fluid bottom">
+    <div id="content" class="container-fluid bottom text-center">
       <div id="viewjoys" class="row py-5 justify-content-center">
+        <span v-if="pagyObj" class="text-uppercase">Page {{ pagyObj.page }} of {{ pagyObj.pages }}</span>
         <div v-if="keyword_search" class="text-center font-bold">
-          Your search results for
-          <span class="text-uppercase">{{ keyword_search }}</span>
+          <span v-if="pagyObj">{{ totalCount }}</span>
+          search results for
+          <span class="text-uppercase">{{ keyword_search }} || Page {{ pagyObj.page }} of {{ pagyObj.pages }}</span>
         </div>
-        <div v-if="joys.length > 0">
+        <div v-if="joys && joys.length > 0">
           <div class="container joys">
             <div class="col-md-10 mx-auto">
               <div class="row my-4 justify-content-center">
@@ -220,6 +222,14 @@ export default {
       this.pageNum = newPageNumber;
       // this.indexJoys();
       this.keywordSearchMyJoys();
+      this.scrollTo();
+    },
+    scrollTo: function () {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
     },
   },
 };

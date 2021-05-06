@@ -21,6 +21,11 @@ export default {
       user_id: localStorage.getItem("user_id"),
     };
   },
+  beforeCreate() {
+    if (!this.getCurrentUsername) {
+      this.$router.push({ name: "Signup" });
+    }
+  },
   created: function () {
     this.showUser();
   },

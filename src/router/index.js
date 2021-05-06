@@ -86,13 +86,16 @@ const router = new VueRouter({
       component: () => import("../views/EditJoy.vue"),
     },
   ],
-  scrollBehavior: function (to) {
-    if (to.hash) {
-      return {
-        selector: to.hash,
-      };
-    }
-  },
+
+  // scrollBehavior(to) {
+  //   document.getElementById("app").scrollIntoView();
+  //   if (to.hash) {
+  //     return {
+  //       selector: to.hash,
+  //     };
+  //   }
+  //   [{ path: "/", component: Home, meta: { scrollToTop: true } }];
+  // },
 });
 
 export default router;
