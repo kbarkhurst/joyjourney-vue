@@ -7,6 +7,18 @@ Vue.use(VueRouter);
 // const router  = new VueRouter({
 
 // });
+function guard(to, from, next) {
+  var isAuthenticated = false;
+  //this is just an example. You will have to find a better or
+  // centralised way to handle you localstorage data handling
+  if (localStorage.getItem("jwt")) isAuthenticated = true;
+  else isAuthenticated = false;
+  if (isAuthenticated) {
+    next(); // allow to enter route
+  } else {
+    next("/signup"); // go to '/login';
+  }
+}
 
 const router = new VueRouter({
   mode: "history",
@@ -46,24 +58,17 @@ const router = new VueRouter({
       path: "/:username/profile",
       name: "Profile",
       component: () => import("../views/Profile.vue"),
+      beforeEnter: guard,
     },
     {
       path: "/:username/addjoy",
       component: () => import("../views/AddJoy.vue"),
+      beforeEnter: guard,
     },
     {
       path: "/:username",
       name: "User",
       component: () => import("../views/UserJoys.vue"),
-    },
-    // {
-    //   path: "/:username/joys",
-    //   component: () => import("../views/JoysNew.vue"),
-    // },
-    {
-      path: "/:username/joys/share/:id",
-      name: "SpreadsJoy",
-      component: () => import("../views/SpreadsJoy.vue"),
     },
     {
       path: "/:username/joys",
@@ -74,6 +79,12 @@ const router = new VueRouter({
       path: "/:username/joys/:id",
       name: "ShowJoy",
       component: () => import("../views/ShowJoy.vue"),
+    },
+    {
+      path: "/:username/joys/share/:id",
+      name: "SpreadsJoy",
+      component: () => import("../views/SpreadsJoy.vue"),
+      beforeEnter: guard,
     },
     {
       path: "/:username/explore",

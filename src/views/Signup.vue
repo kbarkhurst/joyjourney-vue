@@ -106,6 +106,7 @@ export default {
       password: "",
       passwordConfirmation: "",
       errors: [],
+      user_id: localStorage.getItem("user_id"),
     };
   },
   methods: {
@@ -127,6 +128,9 @@ export default {
         .catch((error) => {
           this.errors = error.response.data.errors;
         });
+    },
+    getCurrentUsername: function () {
+      return localStorage.getItem("username");
     },
   },
 };

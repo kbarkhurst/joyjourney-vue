@@ -106,7 +106,8 @@
                                 title="Edit this Joy"
                                 v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/edit/' + joy.id }"
                               >
-                                <i class="bi bi-pen-fill"></i> Edit
+                                <i class="bi bi-pen-fill"></i>
+                                Edit
                               </router-link>
                             </small>
                           </div>

@@ -37,7 +37,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
-          <!-- <li class="nav-item" v-if="isLoggedIn()">Hi, {{ getCurrentUsername() }}!</li> -->
           <li class="nav-item" v-if="!isLoggedIn()">
             <router-link to="/" class="nav-link">Home</router-link>
           </li>
@@ -72,28 +71,6 @@
       </div>
       <p class="credit px-5">Joy Journey is a trademark of Barkhurst Creative, LLC. © 2021.</p>
     </nav>
-
-    <!-- <nav class="navbar navbar-expand-sm navbar-light">
-        <div class="container">
-          <a class="navbar-brand" href="/">JoyJourneys</a>
-          <ul class="navbar-nav mr-auto">
-            <p v-if="isLoggedIn()" class="pe-2">Hi, {{ getCurrentUsername() }}!</p>
-            <li class="nav-item" v-if="!isLoggedIn()">
-              <router-link to="/signup">Sign Up</router-link>
-            </li>
-
-            <li class="nav-item" v-if="!isLoggedIn()">
-              <router-link to="/login">Log In</router-link>
-            </li>
-            <li class="nav-item pe-2" v-if="isLoggedIn()">
-              <router-link :to="{ path: '/' + getCurrentUsername() }">My Joys</router-link>
-            </li>
-            <li class="nav-item" v-if="isLoggedIn()">
-              <router-link to="/logout">Log Out</router-link>
-            </li>
-          </ul>
-        </div>
-      </nav> -->
     <router-view />
   </div>
 </template>

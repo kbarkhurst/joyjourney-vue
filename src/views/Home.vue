@@ -82,7 +82,7 @@
                           <div class="px-4">
                             <router-link
                               title="View this Joy"
-                              v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + joy.id }"
+                              v-bind:to="{ path: '/' + joy.username + '/joys/' + joy.id }"
                             >
                               <h1 class="card-text brandname pink">{{ joy.body }}</h1>
                             </router-link>
@@ -102,7 +102,6 @@
                         </div>
                         <div class="col-md-2 pilledge p-0">
                           <router-link
-                            v-if="user_id"
                             title="Spread Joy"
                             v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/share/' + joy.id }"
                           >
@@ -112,13 +111,13 @@
                             <br />
                             Joy
                           </router-link>
-                          <router-link title="Spread Joy" v-bind:to="{ path: '/signup' }">
+                          <!-- <router-link v-if="!isLoggedIn()" title="Spread Joy" v-bind:to="{ path: '/signup' }">
                             <img src="/images/spreads_joy_icon.svg" alt="spreads joy" title="Spreads Joy" height="40" />
                             <br />
                             Spreads
                             <br />
                             Joy
-                          </router-link>
+                          </router-link> -->
                         </div>
                       </div>
                     </div>
@@ -212,6 +211,7 @@ export default {
           this.pageNum = this.pagyObj.page;
           console.log("search results joys:", this.joys);
           console.log("pagy:", this.pagyObj);
+          this.scrollTo();
         });
     },
     getCurrentUsername: function () {

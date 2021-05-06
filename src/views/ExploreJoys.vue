@@ -80,7 +80,7 @@
                           <div class="px-4">
                             <router-link
                               title="View this Joy"
-                              v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + joy.id }"
+                              v-bind:to="{ path: '/' + joy.username + '/joys/' + joy.id }"
                             >
                               <h1 class="card-text brandname pink">{{ joy.body }}</h1>
                             </router-link>
@@ -200,15 +200,16 @@ export default {
       }
       console.log("keyword search:", this.keyword_search);
       // console.log("/api/joys/?keyword_search=" + this.keyword_search + "&user_id=" + this.user_id);
-      console.log(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${this.user_id}&page=${this.pageNum}`);
+      console.log(`/api/joys/?keyword_search=${this.keyword_search}&visibility=true&page=${this.pageNum}`);
       axios
-        .get(`/api/joys/?keyword_search=${this.keyword_search}&user_id=${this.user_id}&page=${this.pageNum}`)
+        .get(`/api/joys/?keyword_search=${this.keyword_search}&visibility=true&page=${this.pageNum}`)
         .then((response) => {
           this.joys = response.data.joys;
           this.pagyObj = response.data.pagy;
           this.pageNum = this.pagyObj.page;
-          console.log("search results joys:", this.joys);
+          console.log("search results public joys:", this.joys);
           console.log("pagy:", this.pagyObj);
+          this.scrollTo();
         });
     },
     getCurrentUsername: function () {
@@ -217,8 +218,15 @@ export default {
     goToPage: function (newPageNumber) {
       console.log(newPageNumber);
       this.pageNum = newPageNumber;
-      // this.indexJoys();
       this.keywordSearchMyJoys();
+      this.scrollTo();
+    },
+    scrollTo: function () {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
     },
     spreadsJoy: function () {
       console.log("Spreading Joy");

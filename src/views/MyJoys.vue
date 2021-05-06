@@ -249,6 +249,7 @@ export default {
           this.pageNum = this.pagyObj.page;
           console.log("search results joys:", this.joys);
           console.log("pagy:", this.pagyObj);
+          this.scrollTo();
         });
     },
     getCurrentUsername: function () {

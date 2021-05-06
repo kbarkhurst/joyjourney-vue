@@ -63,11 +63,6 @@ export default {
       visibility: true,
     };
   },
-  beforeCreate() {
-    if (!this.getCurrentUsername) {
-      this.$router.push({ name: "Signup" });
-    }
-  },
   created: function () {
     axios.get(`/api/joys/${this.$route.params.id}`).then((response) => {
       console.log(`/api/joys/${this.$route.params.id}`);

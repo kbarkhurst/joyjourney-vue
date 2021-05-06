@@ -21,15 +21,13 @@ export default {
       user_id: localStorage.getItem("user_id"),
     };
   },
-  beforeCreate() {
-    if (!this.getCurrentUsername) {
-      this.$router.push({ name: "Signup" });
-    }
-  },
   created: function () {
     this.showUser();
   },
   methods: {
+    isLoggedIn: function () {
+      return localStorage.getItem("jwt");
+    },
     showUser: function () {
       axios.get(`/api/users/${this.user_id}`).then((response) => {
         this.userdata = response.data;
