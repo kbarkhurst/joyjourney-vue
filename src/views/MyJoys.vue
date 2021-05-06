@@ -180,7 +180,8 @@ export default {
   },
   computed: {
     totalCount() {
-      return this.pagyObj.items * this.pagyObj.pages;
+      return this.pagyObj.count;
+      // return this.pagyObj.items * this.pagyObj.pages;
     },
     userName() {
       return this.$route.params.username;

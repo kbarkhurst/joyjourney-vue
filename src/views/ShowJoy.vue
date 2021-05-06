@@ -25,7 +25,7 @@
                           <div class="px-3">
                             <router-link
                               title="Show this Joy"
-                              v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + parent.id }"
+                              v-bind:to="{ path: '/' + parent.username + '/joys/' + parent.id }"
                             >
                               <h1 class="card-text brandname pink">{{ parent.body }}</h1>
                             </router-link>
@@ -59,6 +59,7 @@
                 </div>
               </div>
             </div>
+            <div v-else class="text-center"><small class="pink text-uppercase">This joy is the start.</small></div>
 
             <div class="row my-4">
               <div class="col-md-10 mx-auto">
@@ -115,7 +116,7 @@
                             <div class="px-3">
                               <router-link
                                 title="Show this Joy"
-                                v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + inspired.id }"
+                                v-bind:to="{ path: '/' + inspired.username + '/joys/' + inspired.id }"
                               >
                                 <h1 class="card-text brandname pink">{{ inspired.body }}</h1>
                               </router-link>
@@ -171,7 +172,7 @@
                           <div class="px-3">
                             <router-link
                               title="Show this Joy"
-                              v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + parent.id }"
+                              v-bind:to="{ path: '/' + parent.username + '/joys/' + parent.id }"
                             >
                               <h1 class="card-text brandname pink">{{ parent.body }}</h1>
                             </router-link>
@@ -206,6 +207,7 @@
                 </div>
               </div>
             </div>
+            <div v-else class="text-center"><small class="pink text-uppercase">This joy is the start.</small></div>
 
             <div class="row my-4">
               <div class="col-md-10 mx-auto">
@@ -254,7 +256,7 @@
               <div class="col-md-10 mx-auto">
                 <div v-if="joy.inspireds && joy.inspireds.length > 0" class="my-5">
                   <h5 class="mb-3 sans-serif text-center text-uppercase">
-                    {{ joy.username }}'s' Joy Inspired More Joys
+                    {{ joy.username }}'s Joy Inspired More Joys
                   </h5>
                   <div v-for="inspired in joy.inspireds" v-bind:key="inspired.id">
                     <div class="card my-3 px-0 text-center shadow scaleddown grow">
@@ -264,7 +266,7 @@
                             <div class="px-3">
                               <router-link
                                 title="Show this Joy"
-                                v-bind:to="{ path: '/' + getCurrentUsername() + '/joys/' + inspired.id }"
+                                v-bind:to="{ path: '/' + inspired.username + '/joys/' + inspired.id }"
                               >
                                 <h1 class="card-text brandname pink">{{ inspired.body }}</h1>
                               </router-link>
