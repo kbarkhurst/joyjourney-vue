@@ -81,14 +81,14 @@
             <span v-if="pagyObj">{{ totalCount }}</span>
             search results for
             <span class="text-uppercase">{{ keyword_search }}</span>
-            - {{ yearSelected }}
+            in {{ yearSelected }}
           </div>
-          <div v-if-else="keyword_search" class="text-center font-bold">
+          <div v-else-if="keyword_search" class="text-center font-bold">
             <span v-if="pagyObj">{{ totalCount }}</span>
             search results for
             <span class="text-uppercase">{{ keyword_search }}</span>
           </div>
-          <div v-if-else="yearSelected" class="text-center font-bold">
+          <div v-else-if="yearSelected" class="text-center font-bold">
             <span v-if="pagyObj">{{ totalCount }}</span>
             joys in {{ yearSelected }}
           </div>
@@ -246,12 +246,18 @@
       </div>
       <div id="content" class="container-fluid text-center">
         <div id="viewjoys" class="row py-5 justify-content-center">
-          <div v-if="keyword_search" class="text-center font-bold">
+          <div v-if="yearSelected && keyword_search" class="text-center font-bold">
+            <span v-if="pagyObj">{{ totalCount }}</span>
+            search results for
+            <span class="text-uppercase">{{ keyword_search }}</span>
+            in {{ yearSelected }}
+          </div>
+          <div v-else-if="keyword_search" class="text-center font-bold">
             <span v-if="pagyObj">{{ totalCount }}</span>
             search results for
             <span class="text-uppercase">{{ keyword_search }}</span>
           </div>
-          <div v-if="yearSelected" class="text-center font-bold">
+          <div v-else-if="yearSelected" class="text-center font-bold">
             <span v-if="pagyObj">{{ totalCount }}</span>
             joys in {{ yearSelected }}
           </div>
